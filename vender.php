@@ -58,7 +58,7 @@
         </select>
 
         <!-- Marca -->
-        <label for="nome">Marca: <span style="color: red;">*</span></label>
+        <label for="marca">Marca: <span style="color: red;">*</span></label>
         <input type="text" name="marca" id="marca" placeholder="Ex: Ford, Honda" required>
 
         <!-- Modelo -->
@@ -71,7 +71,19 @@
 
         <!-- Valor -->
         <label for="valor">Valor: <span style="color: red;">*</span></label>
-        <input type="text" name="valor" id="valor" placeholder="Ex: 50000" required><br><br>
+        <input type="text" name="valor" id="valor" placeholder="Ex: 50000" required>
+
+        <!-- Descrição -->
+        <label for="descricao">Descrição: <span style="color: red;">*</span></label>
+        <textarea name="descricao" id="descricao" placeholder="Adicione uma descrição detalhada do veículo" required></textarea>
+
+        <!-- Aceita troca -->
+        <label for="troca">Aceita troca? <span style="color: red;">*</span></label>
+        <select name="troca" id="troca" required>
+            <option value="" disabled selected>Definir</option>
+            <option value="sim">Sim</option>
+            <option value="não">Não</option>
+        </select>
 
         <!-- Imagens -->
         <label for="imagem">Fotos do veículo: <span style="color: red;">*</span></label>

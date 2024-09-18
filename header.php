@@ -62,8 +62,8 @@
         <!-- Navegação -->
         <nav>
             <ul>
-                <li><a href="/Marketplace%20Automotivo/vender.php">Vender</a></li>
-                <li><a href="/Marketplace%20Automotivo/comprar.php">Comprar</a></li>
+                <li><a href="/marketplace/vender.php">Vender</a></li>
+                <li><a href="/marketplace/comprar.php">Comprar</a></li>
             </ul>
         </nav>
     </header>
