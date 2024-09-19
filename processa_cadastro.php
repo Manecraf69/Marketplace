@@ -5,6 +5,8 @@ $marca = $_POST['marca'];
 $modelo = $_POST['modelo'];
 $ano = $_POST['ano'];
 $valor = $_POST['valor'];
+$descricao = $_POST['descricao'];
+$troca = $_POST['troca'];
 
 // Define o diretório base para armazenar os veículos
 $diretorio_base = 'veiculos/';
@@ -45,6 +47,8 @@ $info_veiculo = [
     'modelo' => $modelo,
     'ano' => $ano,
     'valor' => $valor,
+    'descricao' => $descricao,
+    'troca' => $troca,
 ];
 file_put_contents($pasta_veiculo . '/info.json', json_encode($info_veiculo, JSON_UNESCAPED_UNICODE));
 
@@ -56,6 +60,8 @@ $index_php_content = <<<PHP
 \$modelo = \$info['modelo'];
 \$ano = \$info['ano'];
 \$valor = \$info['valor'];
+\$descricao = \$info['descricao'];
+\$troca = \$info['troca'];
 \$fotos = glob('foto_*.png');
 include '../../formatacaoCadastroVeiculo.php';
 ?>

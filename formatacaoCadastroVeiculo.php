@@ -66,7 +66,12 @@
         .info-veiculo .linha {
             display: flex;
             justify-content: space-between;
+            gap: 5px; /* Espaçamento entre os campos */
             margin-bottom: 10px;
+        }
+
+        .info-veiculo .coluna {
+            flex: 1; /* Cada coluna ocupa o mesmo espaço */
         }
 
         /* Estilo para o pop-up da imagem */
@@ -118,20 +123,34 @@
 
     <div class="info-veiculo">
         <div class="linha">
-            <span><strong>Modelo:</strong></span>
-            <span><?php echo htmlspecialchars($modelo); ?></span>
+            <div class="coluna">
+                <span><strong>Marca:</strong></span>
+                <span><?php echo htmlspecialchars($marca); ?></span>
+            </div>
+            <div class="coluna">
+                <span><strong>Modelo:</strong></span>
+                <span><?php echo htmlspecialchars($modelo); ?></span>
+            </div>
+            <div class="coluna">
+                <span><strong>Ano:</strong></span>
+                <span><?php echo htmlspecialchars($ano); ?></span>
+            </div>
+            <div class="coluna">
+                <span><strong>Valor:</strong></span>
+                <span>R$ <?php echo number_format($valor, 2, ',', '.'); ?></span>
+            </div>
         </div>
+
         <div class="linha">
-            <span><strong>Marca:</strong></span>
-            <span><?php echo htmlspecialchars($marca); ?></span>
+            <div class="coluna">
+                <span><strong>Aceita troca?</strong></span>
+                <span><?php echo htmlspecialchars($troca); ?></span>
+            </div>
         </div>
+
         <div class="linha">
-            <span><strong>Ano:</strong></span>
-            <span><?php echo htmlspecialchars($ano); ?></span>
-        </div>
-        <div class="linha">
-            <span><strong>Valor:</strong></span>
-            <span>R$ <?php echo number_format($valor, 2, ',', '.'); ?></span>
+            <span><strong>Descrição:</strong></span>
+            <span><?php echo htmlspecialchars($descricao); ?></span>
         </div>
     </div>
 
