@@ -153,9 +153,9 @@
                 <label for="rodas">Venda das rodas? <span style="color: red;">*</span></label>
                 <select name="rodas" id="rodas" required>
                     <option value="" disabled selected>Definir</option>
-                    <option value="Apenas completo">Apenas completo</option>
-                    <option value="Apenas rodas">Apenas rodas</option>
-                    <option value="Completo ou rodas">Completo ou rodas</option>
+                    <option value="completo">Apenas completo</option>
+                    <option value="rodas">Apenas rodas</option>
+                    <option value="completo_rodas">Completo ou rodas</option>
                 </select>
             </div>
 
@@ -170,11 +170,9 @@
         <div class="linha">
             <!-- Hodômetro -->
             <div class="coluna">
-                <div class="coluna">
-                    <label for="hodometro">KMs rodados: <span style="color: red;">*</span></label>
-                    <input type="text" name="hodometro" id="hodometro" placeholder="Ex: 150.000" required>
-                </div>
-            </div>       
+                <label for="hodometro">KMs rodados: <span style="color: red;">*</span></label>
+                <input type="text" name="hodometro" id="hodometro" placeholder="Ex: 150.000" required>
+            </div>   
         </div>
 
         <!-- Linha 5: Descrição -->

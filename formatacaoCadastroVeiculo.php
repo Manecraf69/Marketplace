@@ -66,7 +66,6 @@
         .info-veiculo .linha {
             display: flex;
             justify-content: space-between;
-            gap: 5px; /* Espaçamento entre os campos */
             margin-bottom: 10px;
         }
 
@@ -135,16 +134,22 @@
                 <span><strong>Ano:</strong></span>
                 <span><?php echo htmlspecialchars($ano); ?></span>
             </div>
-            <div class="coluna">
-                <span><strong>Valor:</strong></span>
-                <span>R$ <?php echo number_format($valor, 2, ',', '.'); ?></span>
-            </div>
         </div>
 
         <div class="linha">
             <div class="coluna">
+                <span><strong>Valor</strong></span>
+                <span><?php echo htmlspecialchars($valor); ?></span>
+            </div>
+
+            <div class="coluna">
                 <span><strong>Aceita troca?</strong></span>
                 <span><?php echo htmlspecialchars($troca); ?></span>
+            </div>
+
+            <div class="coluna">
+                <span><strong>Retirada de peças?</strong></span>
+                <span><?php echo htmlspecialchars($pecas); ?></span>
             </div>
         </div>
 

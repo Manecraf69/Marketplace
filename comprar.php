@@ -67,6 +67,7 @@
             $valor = $info['valor'];
             $ano = $info['ano'];
             $marca = $info['marca'];
+            $hodometro = $info['hodometro'];
             
             // Busca as fotos do veículo
             $fotos = glob($veiculo . '/foto_*.png');
@@ -80,6 +81,7 @@
             echo '<div class="veiculo-info">';
             echo '<div class="linha1"><span>R$ ' . number_format($valor, 2, ',', '.') . '</span><span>' . $modelo . '</span></div>';
             echo '<div class="linha2"><span>' . $ano . '</span><span>' . $marca . '</span></div>';
+            echo '<div class="linha2"><span>' . $hodometro . '</span></div>';
             echo '</div>';
             echo '</div>';
         }

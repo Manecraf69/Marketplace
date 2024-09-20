@@ -7,6 +7,19 @@ $ano = $_POST['ano'];
 $valor = $_POST['valor'];
 $descricao = $_POST['descricao'];
 $troca = $_POST['troca'];
+$pecas = $_POST['pecas'];
+$rodas = $_POST['rodas'];
+$telefone = $_POST['telefone'];
+$hodometro = $_POST['hodometro'];
+$estado = $_POST['estado'];
+$cidade = $_POST['cidade'];
+$bairro = $_POST['bairro'];
+$estetica = $_POST['estetica'];
+$mecanica = $_POST['mecanica'];
+$quantidade_donos = $_POST['quantidade_donos'];
+$condicao_rodas = $_POST['condicao_rodas'];
+$tipo_rodas = $_POST['tipo_rodas'];
+$tamanho_rodas = $_POST['tamanho_rodas'];
 
 // Define o diretório base para armazenar os veículos
 $diretorio_base = 'veiculos/';
@@ -62,6 +75,19 @@ $index_php_content = <<<PHP
 \$valor = \$info['valor'];
 \$descricao = \$info['descricao'];
 \$troca = \$info['troca'];
+\$pecas = \$info['pecas'];
+\$rodas = \$info['rodas'];
+\$telefone = \$info['telefone'];
+\$hodometro = \$info['hodometro'];
+\$estado = \$info['estado'];
+\$cidade = \$info['cidade'];
+\$bairro = \$info['bairro'];
+\$estetica = \$info['estetica'];
+\$mecanica = \$info['mecanica'];
+\$quantidade_donos = \$info['quantidade_donos'];
+\$condicao_rodas = \$info['condicao_rodas'];
+\$tipo_rodas = \$info['tipo_rodas'];
+\$tamanho_rodas = \$info['tamanho_rodas'];
 \$fotos = glob('foto_*.png');
 include '../../formatacaoCadastroVeiculo.php';
 ?>
