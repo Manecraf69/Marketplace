@@ -32,6 +32,7 @@
 
         .linha .coluna {
             flex: 1; /* Cada coluna ocupa o mesmo espaço */
+            flex-direction: column;
         }
 
         textarea {
@@ -66,7 +67,7 @@
         }
 
         /* Estilo para as linhas de texto informativas */
-        #informacao {
+        .informacao {
             font-size: 18px;
             font-weight: bold;
             color: #ffffff;
@@ -74,6 +75,9 @@
             margin-top: 20px;
             margin: 15px auto -5px;
             width: fit-content;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px; /* Espaçamento entre os campos */
         }
     </style>
 </head>
@@ -83,20 +87,30 @@
 
     <form action="processa_cadastro.php" method="post" enctype="multipart/form-data">
 
-        <!-- Linha 1: Tipo de veículo, Marca, Modelo -->
-        <div class="linha" id="informacao"> --- Dados gerais: ---</div>
-
+        <!-- Linha 1 -->
         <div class="linha">
-            <!-- Tipo de veículo -->
             <div class="coluna">
-                <label for="tipo_veiculo">Tipo de veículo: <span style="color: red;">*</span></label>
-                <select name="tipo_veiculo" id="tipo_veiculo" required>
+                <label for="tipo_venda">O que deseja vender? <span style="color: red;">*</span></label>
+                <select name="tipo_venda" id="tipo_venda" required>
                     <option value="" disabled selected>Definir</option>
                     <option value="carro">Carro</option>
                     <option value="moto">Moto</option>
+                    <option value="pecas">Peças</option>
+                    <option value="rodas">Rodas</option>
                 </select>
             </div>
 
+            <!-- Telefone -->
+            <div class="coluna">
+                <label for="Telefone">Telefone: <span style="color: red;">*</span></label>
+                <input type="text" name="Telefone" id="Telefone" placeholder="Ex: (00) 90000-0000" required>
+            </div>
+        </div>
+
+        <!-- Linha 1: Tipo de veículo, Marca, Modelo -->
+        <div class="informacao venda_veiculo" style="display: none;"> --- Dados gerais: ---</div>
+
+        <div class="linha venda_veiculo" style="display: none;">
             <!-- Marca -->
             <div class="coluna">
                 <label for="marca">Marca: <span style="color: red;">*</span></label>
@@ -111,18 +125,12 @@
         </div>
 
         <!-- Linha 2: Ano, Valor, Aceita troca -->
-        <div class="linha">
+        <div class="linha venda_veiculo" style="display: none;">
             <!-- Ano -->
             <div class="coluna">
                 <label for="ano">Ano: <span style="color: red;">*</span></label>
                 <input type="text" name="ano" id="ano" placeholder="Ex: 2020" required>
             </div>
-
-            <!-- Hodômetro -->
-            <div class="coluna">
-                <label for="hodometro">KMs rodados: <span style="color: red;">*</span></label>
-                <input type="text" name="hodometro" id="hodometro" placeholder="Ex: 150.000" required>
-            </div>  
 
             <!-- Valor -->
             <div class="coluna">
@@ -139,28 +147,30 @@
                     <option value="Não">Não</option>
                 </select>
             </div>
+
+            <!-- Hodômetro -->
+            <div class="coluna">
+                <label for="hodometro">KMs rodados: <span style="color: red;">*</span></label>
+                <input type="text" name="hodometro" id="hodometro" placeholder="Ex: 150.000" required>
+            </div>
         </div>
 
-        <!-- Linha 5: Descrição e imagens-->
+        <!-- Hodômetro -->
         <div class="linha">
-            <!-- Telefone -->
-            <div class="coluna">
-                <label for="Telefone">Telefone: <span style="color: red;">*</span></label>
-                <input type="text" name="Telefone" id="Telefone" placeholder="Ex: (00) 90000-0000" required>
-            </div>
-
-            <!-- Imagens do veículo -->
-            <div class="coluna">
-                <label for="imagem">Fotos do veículo: <span style="color: red;">*</span></label>
-                <input type="file" name="imagem[]" id="imagem" accept="image/*" multiple required>
+            <div class="coluna venda_veiculo" style="display: none;">
+                <label for="descricao">Descrição: <span style="color: red;">*</span></label>
+                <textarea name="descricao" id="descricao" placeholder="Adicione uma descrição detalhada do veículo" required></textarea>
             </div>
         </div>
+        <!-- Linha 5: Descrição -->
+        
 
-        <label for="descricao">Descrição: <span style="color: red;">*</span></label>
-        <textarea name="descricao" id="descricao" placeholder="Adicione uma descrição detalhada do veículo" required></textarea>
+        <!-- Linha 6: Imagens do veículo -->
+        <label for="imagem">Fotos: <span style="color: red;">*</span></label>
+        <input type="file" name="imagem[]" id="imagem" accept="image/*" multiple required>
 
         <!-- Linha 7: Local do veículo -->
-        <div class="linha" id="informacao"> --- Informações do local da venda: ---</div>
+        <div class="informacao"> --- Informações de onde acontecerá a venda: ---</div>
 
         <div class="linha">
             <!-- Estado -->
@@ -183,9 +193,9 @@
         </div>
 
         <!-- Linha 8: Condições e histórico -->
-        <div class="linha" id="informacao"> --- Opcional: ---</div>
+        <div class="informacao venda_veiculo" style="display: none;"> --- Opcional: ---</div>
 
-        <div class="linha">
+        <div class="linha venda_veiculo" style="display: none;">
             <!-- Pintura e lataria -->
             <div class="coluna">
                 <label for="estetica">Pintura e lataria:</label>
@@ -210,6 +220,21 @@
                 </select>
             </div>
 
+            <!-- Donos -->
+            <div class="coluna">
+                <label for="quantidade_donos">Quantidade de donos:</label>
+                <select name="quantidade_donos" id="quantidade_donos">
+                    <option value="" disabled selected>Definir</option>
+                    <option value="Desconhecido">Desconhecido</option>
+                    <option value="Apenas 1 dono">Apenas 1 dono</option>
+                    <option value="Teve 2 donos">Teve 2 donos</option>
+                    <option value="Teve mais de 2 donos">Teve mais de 2 donos</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Linha 9: Rodas -->
+        <div class="linha venda_veiculo" style="display: none;">
             <!-- Condição -->
             <div class="coluna">
                 <label for="condicao_rodas">Pneus:</label>
@@ -222,22 +247,21 @@
                 </select>
             </div>
 
-            <!-- Donos -->
+            <!-- Tipo -->
             <div class="coluna">
-                <label for="quantidade_donos">Donos:</label>
-                <select name="quantidade_donos" id="quantidade_donos">
+                <label for="tipo_rodas">Tipo de rodas:</label>
+                <select name="tipo_rodas" id="tipo_rodas">
                     <option value="" disabled selected>Definir</option>
-                    <option value="Desconhecido">Desconhecido</option>
-                    <option value="Apenas 1 dono">Apenas 1 dono</option>
-                    <option value="Teve 2 donos">Teve 2 donos</option>
-                    <option value="Teve mais de 2 donos">Teve mais de 2 donos</option>
+                    <option value="ferro">Ferro / Raiada</option>
+                    <option value="liga_leve">Liga leve</option>
                 </select>
             </div>
-        </div>
 
-        <!-- Linha 9: Rodas -->
-        <div class="linha">
-            
+            <!-- Tamanho -->
+            <div class="coluna">
+                <label for="tamanho_rodas">Tamanho do aro:</label>
+                <input type="text" name="tamanho_rodas" id="tamanho_rodas" placeholder="Ex: 17''">
+            </div>
         </div>
 
         <!-- Linha 10: Botão de cadastro -->
@@ -300,6 +324,35 @@
             } else {
                 confirmarBtn.disabled = true;
                 confirmarBtn.classList.remove('enabled');
+            }
+        });
+
+        document.getElementById('tipo_venda').addEventListener('change', function() {
+            const tipoVenda = this.value;
+            const vendaVeiculo = document.getElementsByClassName('venda_veiculo');
+            const vendaPecas = document.getElementsByClassName('venda_pecas');
+            const vendaRodas = document.getElementsByClassName('venda_rodas');
+
+            // Função auxiliar para mostrar/ocultar elementos por classe
+            function alterarVisibilidade(elementos, display) {
+                for (let i = 0; i < elementos.length; i++) {
+                    elementos[i].style.display = display;
+                }
+            }
+
+            // Verifica a seleção e exibe os campos correspondentes
+            if (tipoVenda === 'carro' || tipoVenda === 'moto') {
+                alterarVisibilidade(vendaVeiculo, 'flex');
+                alterarVisibilidade(vendaPecas, 'none');
+                alterarVisibilidade(vendaRodas, 'none');
+            } else if (tipoVenda === 'pecas') {
+                alterarVisibilidade(vendaVeiculo, 'none');
+                alterarVisibilidade(vendaPecas, 'flex');
+                alterarVisibilidade(vendaRodas, 'none');
+            } else if (tipoVenda === 'rodas') {
+                alterarVisibilidade(vendaVeiculo, 'none');
+                alterarVisibilidade(vendaPecas, 'none');
+                alterarVisibilidade(vendaRodas, 'flex');
             }
         });
     </script>

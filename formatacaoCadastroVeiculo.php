@@ -69,10 +69,6 @@
             margin-bottom: 10px;
         }
 
-        .info-veiculo .coluna {
-            flex: 1; /* Cada coluna ocupa o mesmo espaço */
-        }
-
         /* Estilo para o pop-up da imagem */
         .modal {
             display: none;
@@ -89,8 +85,8 @@
         .modal-content {
             margin: 5% auto;
             display: block;
-            width: 80%;
-            max-width: 700px;
+            width: 50%;
+            max-width: 100%;
         }
 
         .modal-content img {
@@ -134,26 +130,24 @@
                 <span><strong>Ano:</strong></span>
                 <span><?php echo htmlspecialchars($ano); ?></span>
             </div>
+            <div class="coluna">
+                <span><strong>Valor:</strong></span>
+                <span>R$ <?php echo htmlspecialchars(number_format($valor, 2, ',', '.')); ?></span>
+            </div>
         </div>
 
         <div class="linha">
             <div class="coluna">
-                <span><strong>Valor</strong></span>
-                <span><?php echo htmlspecialchars($valor); ?></span>
+                <span><strong>KMs rodados:</strong></span>
+                <span><?php echo htmlspecialchars(number_format($hodometro, 0, ',', '.')); ?> KM</span>
             </div>
-
             <div class="coluna">
                 <span><strong>Aceita troca?</strong></span>
                 <span><?php echo htmlspecialchars($troca); ?></span>
             </div>
-
-            <div class="coluna">
-                <span><strong>Retirada de peças?</strong></span>
-                <span><?php echo htmlspecialchars($pecas); ?></span>
-            </div>
         </div>
 
-        <div class="linha">
+        <div class="coluna">
             <span><strong>Descrição:</strong></span>
             <span><?php echo htmlspecialchars($descricao); ?></span>
         </div>
