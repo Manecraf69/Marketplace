@@ -62,6 +62,19 @@ $info_veiculo = [
     'valor' => $valor,
     'descricao' => $descricao,
     'troca' => $troca,
+    'pecas' => $pecas,
+    'rodas' => $rodas,
+    'telefone' => $telefone,
+    'hodometro' => $hodometro,
+    'estado' => $estado,
+    'cidade' => $cidade,
+    'bairro' => $bairro,
+    'estetica' => $estetica,
+    'mecanica' => $mecanica,
+    'quantidade_donos' => $quantidade_donos,
+    'condicao_rodas' => $condicao_rodas,
+    'tipo_rodas' => $tipo_rodas,
+    'tamanho_rodas' => $tamanho_rodas,
 ];
 file_put_contents($pasta_veiculo . '/info.json', json_encode($info_veiculo, JSON_UNESCAPED_UNICODE));
 

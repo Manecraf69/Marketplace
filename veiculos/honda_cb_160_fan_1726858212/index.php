@@ -5,6 +5,7 @@ $modelo = $info['modelo'];
 $ano = $info['ano'];
 $valor = $info['valor'];
 $descricao = $info['descricao'];
+$hodometro = $info['hodometro'];
 $troca = $info['troca'];
 $fotos = glob('foto_*.png');
 include '../../formatacaoCadastroVeiculo.php';

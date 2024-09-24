@@ -129,7 +129,7 @@
             <!-- Valor a vista -->
             <div class="coluna">
                 <label for="valor">Valor à vista: <span style="color: red;">*</span></label>
-                <input type="text" name="valor" id="valor" placeholder="Ex: R$25.000,00" oninput="formatarValor(this)" required>
+                <input type="text" name="valor" id="valor" placeholder="Ex: R$25.000,00" required>
             </div>
         </div>
 
@@ -159,13 +159,15 @@
             <!-- Estado -->
             <div class="coluna">
                 <label for="estado">Estado: <span style="color: red;">*</span></label>
-                <input type="text" name="estado" id="estado" placeholder="Ex: Santa Catarina" required>
+                <input type="text" name="estado" id="estado" placeholder="Ex: Santa Catarina" list="estado-list" required>
+                <datalist id="estado-list"></datalist>
             </div>
 
             <!-- Cidade -->
             <div class="coluna">
                 <label for="cidade">Cidade: <span style="color: red;">*</span></label>
-                <input type="text" name="cidade" id="cidade" placeholder="Ex: Joinville" required>
+                <input type="text" name="cidade" id="cidade" placeholder="Ex: Joinville" list="cidade-list" disabled required>
+                <datalist id="cidade-list"></datalist>
             </div>
 
             <!-- Bairro -->
@@ -175,62 +177,10 @@
             </div>
         </div>
 
-        <!-- Título para os campos opcionais -->
+        <!-- Linha 6: Condições e histórico -->
         <div class="linha" id="informacao"> --- Opcional: ---</div>
 
-        <!-- Linha 6: Valor de entrada, Valor de parcelas, Opções de pagamento -->
-        <div class="linha">
-            <!-- Valor de entrada -->
-            <div class="coluna">
-                <label for="valor_entrada">Valor sugerido de entrada:</label>
-                <input type="text" name="valor_entrada" id="valor_entrada" placeholder="Ex: R$5.000,00" oninput="formatarValor(this)">
-            </div>
-
-            <!-- Valor das parcelas -->
-            <div class="coluna">
-                <label for="valor_parcela">Valor das parcelas:</label>
-                <input type="text" name="valor_parcela" id="valor_parcela" placeholder="Ex: R$500,00" oninput="formatarValor(this)">
-            </div>
-
-            <!-- Opções de pagamento -->
-            <div class="coluna">
-                <label for="opcoes_pagamento">Opções de pagamento:</label>
-                <select name="opcoes_pagamento" id="opcoes_pagamento">
-                    <option value="" disabled selected>Definir</option>
-                    <option value="Somente à vista">Somente à vista</option>
-                    <option value="Maquininha">Maquininha</option>
-                    <option value="Financeamento">Financeamento</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Linha 7: xxxxxx -->
-        <div class="linha">
-            <!-- xxxxxx -->
-            <div class="coluna">
-                <label for="valor_entrada">teste:</label>
-                <input type="text" name="valor_entrada" id="valor_entrada" placeholder="Ex: R$5.000,00" oninput="formatarValor(this)">
-            </div>
-
-            <!-- xxxxxx -->
-            <div class="coluna">
-                <label for="valor_parcela">teste:</label>
-                <input type="text" name="valor_parcela" id="valor_parcela" placeholder="Ex: R$500,00" oninput="formatarValor(this)">
-            </div>
-
-            <!-- xxxxxx -->
-            <div class="coluna">
-                <label for="opcoes_pagamento">teste:</label>
-                <select name="opcoes_pagamento" id="opcoes_pagamento">
-                    <option value="" disabled selected>Definir</option>
-                    <option value="Somente à vista">Somente à vista</option>
-                    <option value="Maquininha">Maquininha</option>
-                    <option value="Financeamento">Financeamento</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Linha 7: Troca, Retirada de peças, Venda das rodas -->
+        <!-- Linha 7: Peças, Informações das rodas -->
         <div class="linha">
             <!-- Troca -->
             <div class="coluna">
@@ -264,7 +214,6 @@
             </div>
         </div>
 
-        <!-- Linha 8: Pintura, Mecânica, Quantidade de donos -->
         <div class="linha">
             <!-- Pintura e lataria -->
             <div class="coluna">
@@ -303,7 +252,7 @@
             </div>
         </div>
 
-        <!-- Linha 9: Vida útil dos pneus, Tipo de pneus, Tamanho dos pneus -->
+
         <div class="linha">
             <!-- Pneus-->
             <div class="coluna">
@@ -334,25 +283,51 @@
             </div>
         </div>
 
-        <!-- Linha 10: Botão de cadastro -->
+        <div class="linha">
+            <!-- xxxxxx -->
+            <div class="coluna">
+                <label for="valor_entrada">Valor sugerido de entrada:</label>
+                <input type="text" name="valor_entrada" id="valor_entrada" placeholder="Ex: R$5.000,00">
+            </div>
+
+            <!-- xxxxxx -->
+            <div class="coluna">
+                <label for="valor_parcela">Valor das parcelas:</label>
+                <input type="text" name="valor_parcela" id="valor_parcela" placeholder="Ex: R$500,00">
+            </div>
+
+            <!-- xxxxxx -->
+            <div class="coluna">
+                <label for="opcoes_pagamento">Opções de pagamento:</label>
+                <select name="opcoes_pagamento" id="opcoes_pagamento">
+                    <option value="" disabled selected>Definir</option>
+                    <option value="Somente à vista">Somente à vista</option>
+                    <option value="Maquininha">Maquininha</option>
+                    <option value="Financeamento">Financeamento</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Linha 9: Botão de cadastro -->
         <button class="confirmar-btn" id="confirmarBtn" type="submit">Cadastrar veículo para venda</button>
     </form>
 
     <script>
-        function formatarValor(campo) {
-            let valor = campo.value.replace(/\D/g, ''); // Remove tudo que não for dígito
-            if (valor) {
-                // Formata o número com separadores de milhares e fixa os centavos em 00
-                valor = new Intl.NumberFormat('pt-BR', { 
-                    style: 'currency', 
-                    currency: 'BRL', 
-                    minimumFractionDigits: 2 
-                }).format(valor / 100);
-                campo.value = valor;
-            } else {
-                campo.value = ''; // Limpa o campo se não houver valor
+        document.getElementById('valor').addEventListener('input', function (e) {
+            let valor = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+
+            // Limita a 11 dígitos
+            if (valor.length > 11) {
+                valor = valor.substring(0, 11);
             }
-        }
+
+            // Formata o número para o estilo de moeda brasileira (R$)
+            if (valor) {
+                valor = (valor / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            }
+
+            e.target.value = valor; // Atualiza o campo com a formatação
+        });
 
         document.getElementById('telefone').addEventListener('input', function (e) {
             let tel = e.target.value;
@@ -458,6 +433,49 @@
             // Ajusta a altura dinamicamente
             descricao.style.height = 'auto'; // Reseta a altura para calcular corretamente
             descricao.style.height = descricao.scrollHeight + 'px'; // Define a nova altura conforme o conteúdo
+        });
+
+        // Carregar estados do Brasil (API IBGE)
+        fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+            .then(response => response.json())
+            .then(estados => {
+                const estadoList = document.getElementById('estado-list');
+                estados.forEach(estado => {
+                    const option = document.createElement('option');
+                    option.value = estado.nome;
+                    estadoList.appendChild(option);
+                });
+            });
+
+        // Evento para carregar cidades com base no estado selecionado
+        document.getElementById('estado').addEventListener('input', function () {
+            const estadoSelecionado = this.value;
+            
+            // Buscar sigla do estado selecionado
+            fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+                .then(response => response.json())
+                .then(estados => {
+                    const estadoObj = estados.find(estado => estado.nome.toLowerCase() === estadoSelecionado.toLowerCase());
+                    
+                    if (estadoObj) {
+                        // Habilitar o campo de cidade
+                        document.getElementById('cidade').disabled = false;
+                        
+                        // Carregar cidades desse estado
+                        fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoObj.id}/municipios`)
+                            .then(response => response.json())
+                            .then(cidades => {
+                                const cidadeList = document.getElementById('cidade-list');
+                                cidadeList.innerHTML = ''; // Limpar lista atual
+                                
+                                cidades.forEach(cidade => {
+                                    const option = document.createElement('option');
+                                    option.value = cidade.nome;
+                                    cidadeList.appendChild(option);
+                                });
+                            });
+                    }
+                });
         });
     </script>
 </body>

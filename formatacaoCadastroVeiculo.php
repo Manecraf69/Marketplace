@@ -81,17 +81,25 @@
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.8);
         }
-
         .modal-content {
             margin: 5% auto;
             display: block;
             width: 50%;
             max-width: 100%;
         }
-
         .modal-content img {
             width: 100%;
             height: auto;
+        }
+
+        .linha_opcional {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px; /* Espaçamento entre os campos */
+        }
+
+        .linha_opcional .coluna_opcional {
+            flex: 1; /* Cada coluna ocupa o mesmo espaço */
         }
     </style>
 </head>
@@ -119,37 +127,73 @@
     <div class="info-veiculo">
         <div class="linha">
             <div class="coluna">
-                <span><strong>Marca:</strong></span>
-                <span><?php echo htmlspecialchars($marca); ?></span>
+                <strong>Marca:</strong><br>
+                <?php echo htmlspecialchars($marca); ?>
             </div>
             <div class="coluna">
-                <span><strong>Modelo:</strong></span>
-                <span><?php echo htmlspecialchars($modelo); ?></span>
+                <strong>Modelo:</strong><br>
+                <?php echo htmlspecialchars($modelo); ?>
             </div>
             <div class="coluna">
-                <span><strong>Ano:</strong></span>
-                <span><?php echo htmlspecialchars($ano); ?></span>
+                <strong>Ano:</strong><br>
+                <?php echo htmlspecialchars($ano); ?>
             </div>
             <div class="coluna">
-                <span><strong>Valor:</strong></span>
-                <span>R$ <?php echo htmlspecialchars(number_format($valor, 2, ',', '.')); ?></span>
+                <strong>Valor:</strong><br>
+                <?php echo htmlspecialchars($valor); ?>
+            </div>
+            <div class="coluna">
+                <strong>KMs rodados:</strong><br>
+                <?php echo htmlspecialchars($hodometro); ?> 
             </div>
         </div>
 
         <div class="linha">
             <div class="coluna">
-                <span><strong>KMs rodados:</strong></span>
-                <span><?php echo htmlspecialchars(number_format($hodometro, 0, ',', '.')); ?> KM</span>
+                <strong>Telefone:</strong><br>
+                <?php echo htmlspecialchars($telefone); ?>
             </div>
             <div class="coluna">
-                <span><strong>Aceita troca?</strong></span>
-                <span><?php echo htmlspecialchars($troca); ?></span>
+                <strong>Estado:</strong><br>
+                <?php echo htmlspecialchars($estado); ?> 
+            </div>
+            <div class="coluna">
+                <strong>Cidade:</strong><br>
+                <?php echo htmlspecialchars($cidade); ?>
+            </div>
+            <div class="coluna">
+                <strong>Bairro:</strong><br>
+                <?php echo htmlspecialchars($bairro); ?>
             </div>
         </div>
 
-        <div class="coluna">
-            <span><strong>Descrição:</strong></span>
-            <span><?php echo htmlspecialchars($descricao); ?></span>
+        <div class="linha_opcional">
+            <div class="coluna_opcional">
+                <strong>Aceita troca?</strong>
+                <?php echo htmlspecialchars($troca); ?><br><br>
+
+                <strong>Retirada de peças?</strong>
+                <?php echo htmlspecialchars($pecas); ?><br><br>
+
+                <strong>Venda das rodas?</strong>
+                <?php echo htmlspecialchars($rodas); ?><br>
+            </div>
+
+            <div class="coluna_opcional">
+                <strong>Pintura e lataria:</strong>
+                <?php echo htmlspecialchars($estetica); ?><br><br>
+
+                <strong>Retirada de peças?</strong>
+                <?php echo htmlspecialchars($pecas); ?><br><br>
+
+                <strong>Venda das rodas?</strong>
+                <?php echo htmlspecialchars($rodas); ?><br>
+            </div>
+        </div>
+
+        <div class="coluna"><br>
+            <strong>Descrição:</strong>
+            <?php echo nl2br($descricao); ?>
         </div>
     </div>
 

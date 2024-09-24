@@ -1,0 +1,62 @@
+<!-- Campo Estado -->
+<label for="estado">Estado: <span style="color: red;">*</span></label>
+<input type="text" id="estado" placeholder="Ex: Santa Catarina" list="estado-list">
+<datalist id="estado-list"></datalist>
+
+<!-- Campo Cidade -->
+<label for="cidade">Cidade: <span style="color: red;">*</span></label>
+<input type="text" id="cidade" placeholder="Ex: Joinville" list="cidade-list" disabled>
+<datalist id="cidade-list"></datalist>
+
+<!-- Campo Bairro -->
+<label for="bairro">Bairro: <span style="color: red;">*</span></label>
+<input type="text" id="bairro" placeholder="Ex: Boa vista" list="bairro-list" disabled>
+<datalist id="bairro-list"></datalist>
+
+<script>
+    // Carregar estados do Brasil (API IBGE)
+    fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+        .then(response => response.json())
+        .then(estados => {
+            const estadoList = document.getElementById('estado-list');
+            estados.forEach(estado => {
+                const option = document.createElement('option');
+                option.value = estado.nome;
+                option.dataset.uf = estado.sigla;
+                estadoList.appendChild(option);
+            });
+        });
+
+    // Quando o estado for selecionado, buscar cidades
+    document.getElementById('estado').addEventListener('input', function() {
+        const estadoSelecionado = document.querySelector(`#estado-list option[value="${this.value}"]`);
+        const uf = estadoSelecionado ? estadoSelecionado.dataset.uf : null;
+
+        if (uf) {
+            document.getElementById('cidade').disabled = false;
+            fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+                .then(response => response.json())
+                .then(cidades => {
+                    const cidadeList = document.getElementById('cidade-list');
+                    cidadeList.innerHTML = '';  // Limpa as cidades anteriores
+                    cidades.forEach(cidade => {
+                        const option = document.createElement('option');
+                        option.value = cidade.nome;
+                        cidadeList.appendChild(option);
+                    });
+                });
+        } else {
+            document.getElementById('cidade').disabled = true;
+            document.getElementById('bairro').disabled = true;
+        }
+    });
+
+    // Quando a cidade for selecionada, ativar o campo bairro
+    document.getElementById('cidade').addEventListener('input', function() {
+        if (this.value) {
+            document.getElementById('bairro').disabled = false;
+        } else {
+            document.getElementById('bairro').disabled = true;
+        }
+    });
+</script>

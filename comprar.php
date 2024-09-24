@@ -80,8 +80,8 @@
             echo '</a>';
             echo '<div class="veiculo-info">';
             echo '<div class="linha1"><span>' . $marca . '</span><span>' . $modelo . '</span></div>';
-            echo '<div class="linha2"><span>' . $ano . '</span><span>R$ ' . number_format($valor, 2, ',', '.') . '</span></div>';
-            echo '<div class="linha2"><span>' . number_format($hodometro, 0, ',', '.') . ' km</span></div>';
+            echo '<div class="linha2"><span>' . $ano . '</span><span> ' . $valor . '</span></div>';
+            echo '<div class="linha2"><span>' . $hodometro . ' </span></div>';
             echo '</div>';
             echo '</div>';
         }
