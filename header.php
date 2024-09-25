@@ -10,7 +10,7 @@
 
         /* Estilo do cabeçalho */
         header {
-            background-color: #333;
+            background-color: #1d1d1d;
             color: #fff;
             padding: 10px 20px;
             display: flex;

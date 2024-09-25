@@ -18,6 +18,7 @@
             overflow: hidden;
             border-radius: 8px;
             background-color: #333;
+            margin-top: 10px;
         }
 
         .carrossel img {
@@ -101,12 +102,29 @@
         .linha_opcional .coluna_opcional {
             flex: 1; /* Cada coluna ocupa o mesmo espaço */
         }
+        .info-sobre-imagem {
+            margin: 5px 0px 10px 10px;
+            color: white;
+            font-size: 1.5em;
+        }
+        .marca, .ano {
+            font-size: 18px;
+        }
+        .modelo {
+            text-decoration: underline;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <?php include 'header.php'; ?>
 
     <div class="carrossel">
+        <div class="info-sobre-imagem">
+            <span class="marca"><?php echo htmlspecialchars($marca); ?></span>
+            <span class="modelo"><?php echo htmlspecialchars($modelo); ?></span>
+            <span class="ano"><?php echo htmlspecialchars($ano); ?></span>
+        </div>
         <div class="slides">
             <?php foreach ($fotos as $foto): ?>
                 <div class="slide">
@@ -139,7 +157,7 @@
                 <?php echo htmlspecialchars($ano); ?>
             </div>
             <div class="coluna">
-                <strong>Valor:</strong><br>
+                <strong>Valor à vista:</strong><br>
                 <?php echo htmlspecialchars($valor); ?>
             </div>
             <div class="coluna">

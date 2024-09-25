@@ -126,7 +126,7 @@
                 <input type="text" name="hodometro" id="hodometro" placeholder="Ex: 150.000km" required>
             </div>  
 
-            <!-- Valor a vista -->
+            <!-- Valor à vista -->
             <div class="coluna">
                 <label for="valor">Valor à vista: <span style="color: red;">*</span></label>
                 <input type="text" name="valor" id="valor" placeholder="Ex: R$25.000,00" oninput="formatarValor(this)" required>
@@ -322,7 +322,7 @@
                 <label for="tipo_rodas">Tipo de rodas:</label>
                 <select name="tipo_rodas" id="tipo_rodas">
                     <option value="" disabled selected>Definir</option>
-                    <option value="Ferro / Calota">Ferro / Calota</option>
+                    <option value="Ferro / Raiada">Ferro / Calota</option>
                     <option value="Liga leve">Liga leve</option>
                 </select>
             </div>
