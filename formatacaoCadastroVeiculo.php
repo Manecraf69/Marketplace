@@ -58,7 +58,7 @@
 
         .info-veiculo {
             max-width: 600px;
-            margin: 20px auto;
+            margin: 10px auto 100px;  /* Cima - Direita - Baixo - Esquerda */
             padding: 15px;
             background-color: #333;
             border-radius: 8px;
@@ -102,13 +102,26 @@
         .linha_opcional .coluna_opcional {
             flex: 1; /* Cada coluna ocupa o mesmo espaço */
         }
+
+        /* Estilo para as informações que ficam em cima das imagens do carrossel*/
         .info-sobre-imagem {
-            margin: 5px 0px 10px 10px;
+            margin: 5px 0px 10px 10px; /* Cima - Direita - Baixo - Esquerda */
             color: white;
             font-size: 1.5em;
         }
         .marca, .ano {
             font-size: 18px;
+        }
+        .hodometro{
+            font-size: 16px;
+            margin-right: 5px;
+            float: right;
+        }
+        .valor{
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 5px;
+            float: right;
         }
         .modelo {
             text-decoration: underline;
@@ -124,6 +137,8 @@
             <span class="marca"><?php echo htmlspecialchars($marca); ?></span>
             <span class="modelo"><?php echo htmlspecialchars($modelo); ?></span>
             <span class="ano"><?php echo htmlspecialchars($ano); ?></span>
+            <span class="hodometro"><?php echo htmlspecialchars($hodometro); ?></span>
+            <span class="valor"><?php echo htmlspecialchars($valor); ?></span>
         </div>
         <div class="slides">
             <?php foreach ($fotos as $foto): ?>

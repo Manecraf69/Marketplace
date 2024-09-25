@@ -1,0 +1,25 @@
+<!-- Linha 6: Valor de entrada, Valor de parcelas, Opções de pagamento -->
+<div class="linha">
+    <!-- Valor de entrada -->
+    <div class="coluna">
+        <label for="valor_entrada">Valor sugerido de entrada:</label>
+        <input type="text" name="valor_entrada" id="valor_entrada" placeholder="Ex: R$5.000,00" oninput="formatarValor(this)">
+    </div>
+
+    <!-- Valor das parcelas -->
+    <div class="coluna">
+        <label for="valor_parcela">Valor das parcelas:</label>
+        <input type="text" name="valor_parcela" id="valor_parcela" placeholder="Ex: R$500,00" oninput="formatarValor(this)">
+    </div>
+
+    <!-- Opções de pagamento -->
+    <div class="coluna">
+        <label for="opcoes_pagamento">Opções de pagamento:</label>
+        <select name="opcoes_pagamento" id="opcoes_pagamento">
+            <option value="" disabled selected>Definir</option>
+            <option value="Somente à vista">Somente à vista</option>
+            <option value="Maquininha">Maquininha</option>
+            <option value="Financeamento">Financeamento</option>
+        </select>
+    </div>
+</div>

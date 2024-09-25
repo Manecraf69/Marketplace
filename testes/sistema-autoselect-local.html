@@ -1,48 +1,49 @@
 <!-- Campo Estado -->
 <label for="estado">Estado: <span style="color: red;">*</span></label>
-<input type="text" id="estado" placeholder="Ex: Santa Catarina" list="estado-list">
-<datalist id="estado-list"></datalist>
+<select id="estado" required>
+    <option value="" disabled selected>Selecione o estado</option>
+</select>
 
 <!-- Campo Cidade -->
 <label for="cidade">Cidade: <span style="color: red;">*</span></label>
-<input type="text" id="cidade" placeholder="Ex: Joinville" list="cidade-list" disabled>
-<datalist id="cidade-list"></datalist>
+<select id="cidade" disabled required>
+    <option value="" disabled selected>Selecione a cidade</option>
+</select>
 
 <!-- Campo Bairro -->
 <label for="bairro">Bairro: <span style="color: red;">*</span></label>
-<input type="text" id="bairro" placeholder="Ex: Boa vista" list="bairro-list" disabled>
-<datalist id="bairro-list"></datalist>
+<input type="text" id="bairro" placeholder="Ex: Boa Vista" disabled required>
 
 <script>
     // Carregar estados do Brasil (API IBGE)
     fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
         .then(response => response.json())
         .then(estados => {
-            const estadoList = document.getElementById('estado-list');
+            const estadoSelect = document.getElementById('estado');
             estados.forEach(estado => {
                 const option = document.createElement('option');
-                option.value = estado.nome;
-                option.dataset.uf = estado.sigla;
-                estadoList.appendChild(option);
+                option.value = estado.sigla; // Usa a sigla como valor
+                option.textContent = estado.nome;
+                estadoSelect.appendChild(option);
             });
         });
 
     // Quando o estado for selecionado, buscar cidades
-    document.getElementById('estado').addEventListener('input', function() {
-        const estadoSelecionado = document.querySelector(`#estado-list option[value="${this.value}"]`);
-        const uf = estadoSelecionado ? estadoSelecionado.dataset.uf : null;
+    document.getElementById('estado').addEventListener('change', function() {
+        const uf = this.value;
 
         if (uf) {
             document.getElementById('cidade').disabled = false;
             fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
                 .then(response => response.json())
                 .then(cidades => {
-                    const cidadeList = document.getElementById('cidade-list');
-                    cidadeList.innerHTML = '';  // Limpa as cidades anteriores
+                    const cidadeSelect = document.getElementById('cidade');
+                    cidadeSelect.innerHTML = '<option value="" disabled selected>Selecione a cidade</option>';  // Limpa as cidades anteriores
                     cidades.forEach(cidade => {
                         const option = document.createElement('option');
                         option.value = cidade.nome;
-                        cidadeList.appendChild(option);
+                        option.textContent = cidade.nome;
+                        cidadeSelect.appendChild(option);
                     });
                 });
         } else {
@@ -51,8 +52,8 @@
         }
     });
 
-    // Quando a cidade for selecionada, ativar o campo bairro
-    document.getElementById('cidade').addEventListener('input', function() {
+    // Quando a cidade for selecionada, ativar o campo bairro para digitação
+    document.getElementById('cidade').addEventListener('change', function() {
         if (this.value) {
             document.getElementById('bairro').disabled = false;
         } else {

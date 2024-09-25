@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de CEP</title>
+</head>
+<body>
+    <form id="cepForm">
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" required maxlength="9" placeholder="00000-000">
+        <button type="submit">Consultar</button>
+    </form>
+    <div id="resultado">
+        <p><strong>Estado:</strong> <span id="estado"></span></p>
+        <p><strong>Cidade:</strong> <span id="cidade"></span></p>
+        <p><strong>Bairro:</strong> <span id="bairro"></span></p>
+    </div>
+
+    <script>
+        // Formatar CEP automaticamente enquanto o usuário digita
+        const cepInput = document.getElementById('cep');
+
+        cepInput.addEventListener('input', function() {
+            let cep = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+            // Limita a quantidade de dígitos a 8
+            if (cep.length > 8) {
+                cep = cep.slice(0, 8);
+            }
+
+            // Formatar com hífen se tiver mais de 5 dígitos
+            if (cep.length > 5) {
+                this.value = cep.slice(0, 5) + '-' + cep.slice(5);
+            } else {
+                this.value = cep;
+            }
+        });
+
+        // Consulta o CEP na API ViaCEP
+        document.getElementById('cepForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const cep = cepInput.value.replace(/\D/g, ''); // Remove o hífen e deixa apenas os números
+
+            // Verificar se o CEP tem 8 dígitos
+            if (cep.length === 8) {
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.erro) {
+                            // Preencher os campos com as informações retornadas
+                            document.getElementById('estado').textContent = data.uf;
+                            document.getElementById('cidade').textContent = data.localidade;
+                            document.getElementById('bairro').textContent = data.bairro;
+                        } else {
+                            // Preencher com "CEP inválido" se o CEP não for encontrado
+                            document.getElementById('estado').textContent = 'CEP inválido';
+                            document.getElementById('cidade').textContent = 'CEP inválido';
+                            document.getElementById('bairro').textContent = 'CEP inválido';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao consultar o CEP:', error);
+                        document.getElementById('estado').textContent = 'Erro';
+                        document.getElementById('cidade').textContent = 'Erro';
+                        document.getElementById('bairro').textContent = 'Erro';
+                    });
+            } else {
+                // Preencher com "CEP inválido" se o CEP tiver formato incorreto
+                document.getElementById('estado').textContent = 'CEP inválido';
+                document.getElementById('cidade').textContent = 'CEP inválido';
+                document.getElementById('bairro').textContent = 'CEP inválido';
+            }
+        });
+    </script>
+</body>
+</html>
