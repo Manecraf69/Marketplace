@@ -46,6 +46,12 @@
             display: flex;
             justify-content: space-between;
         }
+
+        .veiculo-info .linha3 {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +74,8 @@
             $ano = $info['ano'];
             $marca = $info['marca'];
             $hodometro = $info['hodometro'];
+            $estado = $info['estado'];
+            $cidade = $info['cidade'];
             
             // Busca as fotos do veículo
             $fotos = glob($veiculo . '/foto_*.png');
@@ -81,7 +89,7 @@
             echo '<div class="veiculo-info">';
             echo '<div class="linha1"><span>' . $marca . '</span><span>' . $modelo . '</span></div>';
             echo '<div class="linha2"><span>' . $ano . '</span><span> ' . $valor . '</span></div>';
-            echo '<div class="linha2"><span>' . $hodometro . ' </span></div>';
+            echo '<div class="linha3"><span>' . $hodometro . ' </span><span> ' . $estado . " " . substr($cidade, 0, 11) . '</span></div>';
             echo '</div>';
             echo '</div>';
         }

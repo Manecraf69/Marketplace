@@ -261,7 +261,7 @@
                     <label for="pecas">Retirada de peças?</label>
                     <select name="pecas" id="pecas">
                         <option value="" disabled selected>Definir</option>
-                        <option value="Apenas completo">Apenas completo</option>
+                        <option value="Apenas veículo completo">Apenas veículo completo</option>
                         <option value="Apenas peças">Apenas peças</option>
                         <option value="Completo ou peças">Completo ou peças</option>
                     </select>
@@ -272,8 +272,8 @@
                     <label for="rodas">Venda das rodas?</label>
                     <select name="rodas" id="rodas">
                         <option value="" disabled selected>Definir</option>
-                        <option value="sim">Sim</option>
-                        <option value="nao">Não</option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
                     </select>
                 </div>
             </div>
@@ -312,7 +312,7 @@
                         <option value="Desconhecido">Desconhecido</option>
                         <option value="Apenas 1 dono">Apenas 1 dono</option>
                         <option value="Teve 2 donos">Teve 2 donos</option>
-                        <option value="Teve mais de 2 donos">3 ou mais</option>
+                        <option value="3 ou mais">3 ou mais</option>
                     </select>
                 </div>
             </div>
@@ -336,7 +336,7 @@
                     <label for="tipo_rodas">Tipo de rodas:</label>
                     <select name="tipo_rodas" id="tipo_rodas">
                         <option value="" disabled selected>Definir</option>
-                        <option value="Ferro / Raiada">Ferro / Calota</option>
+                        <option value="Ferro / Raiada">Ferro / Raiada</option>
                         <option value="Liga leve">Liga leve</option>
                     </select>
                 </div>
@@ -356,6 +356,12 @@
     <script>
         function formatarValor(campo) {
             let valor = campo.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+            
+            // Limita o valor a 11 dígitos
+            if (valor.length > 9) {
+                valor = valor.slice(0, 9);
+            }
+
             if (valor) {
                 // Formata o número com separadores de milhares e fixa os centavos em 00
                 valor = new Intl.NumberFormat('pt-BR', { 

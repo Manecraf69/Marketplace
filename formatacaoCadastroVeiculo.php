@@ -13,7 +13,7 @@
 
         .carrossel {
             position: relative;
-            max-width: 600px;
+            max-width: 700px;
             margin: auto;
             overflow: hidden;
             border-radius: 8px;
@@ -57,7 +57,7 @@
         }
 
         .info-veiculo {
-            max-width: 600px;
+            max-width: 700px;
             margin: 10px auto 100px;  /* Cima - Direita - Baixo - Esquerda */
             padding: 15px;
             background-color: #333;
@@ -97,6 +97,7 @@
             display: flex;
             justify-content: space-between;
             gap: 10px; /* Espaçamento entre os campos */
+            font-size: 15px;
         }
 
         .linha_opcional .coluna_opcional {
@@ -126,6 +127,10 @@
         .modelo {
             text-decoration: underline;
             font-weight: bold;
+        }
+
+        .descricao {
+            text-align: justify; /* Justifica o texto */
         }
     </style>
 </head>
@@ -202,29 +207,58 @@
 
         <div class="linha_opcional">
             <div class="coluna_opcional">
-                <strong>Aceita troca?</strong>
-                <?php echo htmlspecialchars($troca); ?><br><br>
-
-                <strong>Retirada de peças?</strong>
-                <?php echo htmlspecialchars($pecas); ?><br><br>
-
-                <strong>Venda das rodas?</strong>
-                <?php echo htmlspecialchars($rodas); ?><br>
+                <?php if (!empty($troca)): ?>
+                    <strong>Aceita troca?</strong>
+                    <?php echo htmlspecialchars($troca); ?><br><br>
+                <?php endif; ?>
+        
+                <?php if (!empty($pecas)): ?>
+                    <strong>Retirada de peças?</strong>
+                    <?php echo htmlspecialchars($pecas); ?><br><br>
+                <?php endif; ?>
+        
+                <?php if (!empty($rodas)): ?>
+                    <strong>Venda das rodas?</strong>
+                    <?php echo htmlspecialchars($rodas); ?><br>
+                <?php endif; ?>
             </div>
-
+        
             <div class="coluna_opcional">
-                <strong>Pintura e lataria:</strong>
-                <?php echo htmlspecialchars($estetica); ?><br><br>
-
-                <strong>Retirada de peças?</strong>
-                <?php echo htmlspecialchars($pecas); ?><br><br>
-
-                <strong>Venda das rodas?</strong>
-                <?php echo htmlspecialchars($rodas); ?><br>
+                <?php if (!empty($estetica)): ?>
+                    <strong>Pintura e lataria:</strong>
+                    <?php echo htmlspecialchars($estetica); ?><br><br>
+                <?php endif; ?>
+        
+                <?php if (!empty($mecanica)): ?>
+                    <strong>Mecânica:</strong>
+                    <?php echo htmlspecialchars($mecanica); ?><br><br>
+                <?php endif; ?>
+        
+                <?php if (!empty($quantidade_donos)): ?>
+                    <strong>Donos:</strong>
+                    <?php echo htmlspecialchars($quantidade_donos); ?><br>
+                <?php endif; ?>
             </div>
-        </div>
+        
+            <div class="coluna_opcional">
+                <?php if (!empty($condicao_rodas)): ?>
+                    <strong>Pneus:</strong>
+                    <?php echo htmlspecialchars($condicao_rodas); ?><br><br>
+                <?php endif; ?>
+        
+                <?php if (!empty($tipo_rodas)): ?>
+                    <strong>Tipo de rodas:</strong>
+                    <?php echo htmlspecialchars($tipo_rodas); ?><br><br>
+                <?php endif; ?>
+        
+                <?php if (!empty($tamanho_rodas)): ?>
+                    <strong>Tamanho das rodas:</strong>
+                    <?php echo htmlspecialchars($tamanho_rodas); ?><br>
+                <?php endif; ?>
+            </div>
+        </div>        
 
-        <div class="coluna"><br>
+        <div class="coluna descricao"><br>
             <strong>Descrição:</strong>
             <?php echo nl2br($descricao); ?>
         </div>
