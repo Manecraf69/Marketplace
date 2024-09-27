@@ -6,6 +6,7 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #474747;
+            color: #fff;
         }
 
         /* Estilo do cabeçalho */
@@ -51,6 +52,22 @@
 
         nav ul li a:hover {
             text-decoration: underline;
+        }
+
+        /* Estilos para telas menores que 600px */
+        @media (max-width: 600px) {
+            /* Texto menor para o nome do site */
+            .nomeDoSite {
+                font-size: 18px;
+            }
+            
+            nav ul li {
+                margin-left: 10px; /* Menor espaço entre os itens */
+            }
+
+            nav ul li a {
+                font-size: 14px; /* Fonte menor para os links */
+            }
         }
     </style>
 </head>

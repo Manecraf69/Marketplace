@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrossel de Imagens</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #carousel {
+            position: relative;
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+            border: 1px solid #ccc;
+        }
+        .images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .image {
+            min-width: 25%; /* Exibe 4 imagens por vez */
+            height: auto;
+            user-select: none;
+        }
+        #prev, #next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 18px;
+            z-index: 10;
+        }
+        #prev {
+            left: 0; /* Ajusta a posição do botão de regressar */
+        }
+        #next {
+            right: 0; /* Ajusta a posição do botão de progredir */
+        }
+        .upload-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .draggable {
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="upload-container">
+        <input type="file" id="imageUpload" accept="image/*" multiple>
+    </div>
+
+    <div id="carousel">
+        <button id="prev">❮</button>
+        <div class="images" id="imageContainer"></div>
+        <button id="next">❯</button>
+    </div>
+
+    <script>
+        const imageUpload = document.getElementById('imageUpload');
+        const imageContainer = document.getElementById('imageContainer');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        let currentIndex = 0;
+        let images = [];
+
+        // Função para redimensionar imagens
+        function resizeImage(file) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    img.src = e.target.result;
+                };
+                
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 300; // Largura máxima para redimensionamento
+                    const scale = Math.min(MAX_WIDTH / img.width, 1);
+                    canvas.width = img.width * scale;
+                    canvas.height = img.height * scale;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    
+                    // Converte a imagem para formato JPEG com qualidade reduzida
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.7); // 70% de qualidade
+                    resolve(dataUrl);
+                };
+                
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Função para atualizar o carrossel
+        function updateCarousel() {
+            imageContainer.innerHTML = '';
+            images.forEach((src, index) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'image draggable';
+                img.draggable = true;
+                img.dataset.index = index;
+                imageContainer.appendChild(img);
+            });
+            imageContainer.style.transform = `translateX(-${currentIndex * 25}%)`; // Ajuste para 4 imagens por vez
+        }
+
+        // Carregar imagens
+        imageUpload.addEventListener('change', async (event) => {
+            const files = event.target.files;
+            for (let file of files) {
+                const resizedImage = await resizeImage(file);
+                images.push(resizedImage);
+                updateCarousel();
+            }
+        });
+
+        // Navegar para a imagem anterior
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : Math.max(images.length - 4, 0);
+            updateCarousel();
+        });
+
+        // Navegar para a próxima imagem
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 4) ? currentIndex + 1 : 0;
+            updateCarousel();
+        });
+
+        // Troca de ordem das imagens
+        imageContainer.addEventListener('dragstart', (event) => {
+            event.dataTransfer.setData('text/plain', event.target.dataset.index);
+        });
+
+        imageContainer.addEventListener('dragover', (event) => {
+            event.preventDefault();
+        });
+
+        imageContainer.addEventListener('drop', (event) => {
+            const draggedIndex = event.dataTransfer.getData('text/plain');
+            const targetIndex = event.target.dataset.index;
+
+            if (draggedIndex !== targetIndex) {
+                // Trocar as imagens
+                const draggedImage = images[draggedIndex];
+                images[draggedIndex] = images[targetIndex];
+                images[targetIndex] = draggedImage;
+
+                // Atualizar o carrossel
+                updateCarousel();
+            }
+        });
+
+    </script>
+</body>
+</html>

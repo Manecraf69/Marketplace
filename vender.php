@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <style>
-        body {
-            background-color: #474747;
-            color: #fff;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Vender veículos</title>
+
+    <style>
         form {
             max-width: 700px;
             margin: 0 auto;
@@ -98,7 +98,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(26, 26, 46, 0.9); /* Fundo semi-transparente */
+            background-color: rgba(0, 0, 0, 0.9); /* Fundo semi-transparente */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -121,6 +121,35 @@
             border: none;
             padding: 10px 20px;
             cursor: pointer;
+        }
+
+        /* Responsividade: Estilos específicos para celulares */
+        @media (max-width: 700px) {
+            .linha {
+                flex-direction: column; /* Empilha os itens na vertical */
+            }
+
+            .confirmar-btn {
+                width: 100%; /* Botão ocupa toda a largura */
+            }
+
+            form {
+                padding: 10px; /* Adiciona um espaçamento interno */
+            }
+
+            input, textarea, select {
+                font-size: 16px; /* Aumenta o tamanho da fonte para telas menores */
+            }
+
+            #informacao {
+                font-size: 16px;
+            }
+
+            .caixasDeSeparacao {
+                margin: 0px;
+                margin-top: 20px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -354,6 +383,7 @@
     </form>
 
     <script>
+        // Formatar itens com preço
         function formatarValor(campo) {
             let valor = campo.value.replace(/\D/g, ''); // Remove tudo que não for dígito
             
@@ -375,6 +405,7 @@
             }
         }
 
+        // Formatar o número de telefone
         document.getElementById('telefone').addEventListener('input', function (e) {
             let tel = e.target.value;
             
@@ -393,6 +424,7 @@
             e.target.value = tel;  // Atualiza o campo com a formatação
         });
 
+        // Formatar o valor do hodômetro
         document.getElementById('hodometro').addEventListener('input', function (e) {
             let kms = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito, exceto "km"
 
@@ -416,6 +448,7 @@
             e.target.setSelectionRange(kms.length, kms.length);
         });
 
+        // Formatar o valor do ano
         document.getElementById('ano').addEventListener('input', function (e) {
             let ano = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
             
@@ -427,6 +460,7 @@
             e.target.value = ano; // Atualiza o campo com o valor limitado a 4 dígitos
         });
 
+        // Formatar o valor do tamanho da roda
         document.getElementById('tamanho_rodas').addEventListener('input', function (e) {
             let aro = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
 
@@ -473,6 +507,7 @@
             element.addEventListener('input', validarFormulario);
         });
 
+        // Configura o input de texto da descrição
         document.getElementById('descricao').addEventListener('input', function () {
             const descricao = this;
 
@@ -486,6 +521,7 @@
             descricao.style.height = descricao.scrollHeight + 'px'; // Define a nova altura conforme o conteúdo
         });
 
+        // Usa o CEP informado para retornar Estado, Cidade e Bairro
         document.getElementById('cep').addEventListener('input', function () {
             let cep = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
 
@@ -539,6 +575,7 @@
             }
         });
 
+        // Impede que o usuário entregue o formulário de cadastro se o CEP estiver incorreto
         document.querySelector('form').addEventListener('submit', function(event) {
             const estado = document.getElementById('estado').value.trim();
             

@@ -58,7 +58,7 @@
 
         .info-veiculo {
             max-width: 700px;
-            margin: 10px auto 100px;  /* Cima - Direita - Baixo - Esquerda */
+            margin: 10px auto;  /* Cima - Direita - Baixo - Esquerda */
             padding: 15px;
             background-color: #333;
             border-radius: 8px;
@@ -108,17 +108,16 @@
         .info-sobre-imagem {
             margin: 5px 0px 10px 10px; /* Cima - Direita - Baixo - Esquerda */
             color: white;
-            font-size: 1.5em;
         }
         .marca, .ano {
             font-size: 18px;
         }
-        .hodometro{
+        .hodometro {
             font-size: 16px;
             margin-right: 5px;
             float: right;
         }
-        .valor{
+        .valor {
             font-weight: bold;
             font-size: 20px;
             margin-right: 5px;
@@ -127,10 +126,40 @@
         .modelo {
             text-decoration: underline;
             font-weight: bold;
+            font-size: 25px;
         }
 
         .descricao {
             text-align: justify; /* Justifica o texto */
+        }
+
+        @media (max-width: 700px) {
+            .linha_opcional .coluna_opcional, .linha, .descricao{
+                font-size: 12px;
+            }
+
+            /* Info sobre a imagem */
+            .marca, .ano {
+                font-size: 12px;
+            }
+            .hodometro {
+                font-size: 10px;
+            }
+            .valor {
+                font-size: 14px;
+            }
+            .modelo {
+                font-size: 18px;
+            }
+
+            .carrossel {
+                max-width: 90%;
+            }
+
+            .info-veiculo {
+                margin-right: 5px;
+                margin-left: 5px;
+            }
         }
     </style>
 </head>

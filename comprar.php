@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <title>Comprar</title>
-    <style>
-        body {
-            background-color: #474747;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Comprar veículos</title>
+
+    <style>
         .veiculos-container {
             text-align: center; /* Centraliza os itens inline-block */
             margin: 0 auto; /* Garante que o contêiner ocupe o espaço disponível */
@@ -32,10 +30,6 @@
             border-radius: 5px;
         }
 
-        .veiculo-info {
-            margin-top: 10px;
-        }
-
         .veiculo-info .linha1 {
             display: flex;
             justify-content: space-between;
@@ -51,6 +45,29 @@
             display: flex;
             justify-content: space-between;
             font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .veiculo {
+                width: 40%;
+            }
+
+            .veiculo img {
+                width: 40vw;
+                height: 40vw;
+            }
+
+            .veiculo-info .linha1 {
+                font-size: 14px;
+            }
+
+            .veiculo-info .linha2 {
+                font-size: 12px;
+            }
+
+            .veiculo-info .linha3 {
+                font-size: 10px;
+            }
         }
     </style>
 </head>
