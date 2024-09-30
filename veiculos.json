@@ -1,0 +1,34 @@
+{
+    "carro": {
+        "marcas": [
+            {
+                "nome": "Ford",
+                "modelos": ["Fiesta", "Focus", "Mustang"]
+            },
+            {
+                "nome": "Chevrolet",
+                "modelos": ["Onix", "Cruze", "Spin"]
+            },
+            {
+                "nome": "Toyota",
+                "modelos": ["Corolla", "Hilux", "Yaris"]
+            }
+        ]
+    },
+    "moto": {
+        "marcas": [
+            {
+                "nome": "Honda",
+                "modelos": ["CB 500", "Biz", "Hornet"]
+            },
+            {
+                "nome": "Yamaha",
+                "modelos": ["Fazer", "MT-03", "XT 660"]
+            },
+            {
+                "nome": "Suzuki",
+                "modelos": ["GSX-R", "V-Strom", "Intruder"]
+            }
+        ]
+    }
+}

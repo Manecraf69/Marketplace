@@ -45,6 +45,7 @@
             display: flex;
             justify-content: space-between;
             transform: translateY(-50%);
+            pointer-events: none; /* Permite que os cliques passem por esta camada */
         }
 
         .carrossel .nav button {
@@ -54,6 +55,7 @@
             padding: 10px;
             cursor: pointer;
             user-select: none; /* Previne a seleção de texto */
+            pointer-events: auto; /* Mantém os botões clicáveis */
         }
 
         .info-veiculo {
@@ -93,13 +95,14 @@
             height: auto;
         }
 
+        /* Estilo para as informações adcionais */
         .linha_opcional {
-            display: flex;
+            display: grid;
             justify-content: space-between;
+            grid-template-columns: repeat(3, 1fr); /* 3 colunas de tamanhos iguais */
             gap: 10px; /* Espaçamento entre os campos */
             font-size: 15px;
         }
-
         .linha_opcional .coluna_opcional {
             flex: 1; /* Cada coluna ocupa o mesmo espaço */
         }
@@ -108,27 +111,28 @@
         .info-sobre-imagem {
             margin: 5px 0px 10px 10px; /* Cima - Direita - Baixo - Esquerda */
             color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Para alinhar os itens verticalmente */
         }
         .marca, .ano {
             font-size: 18px;
-        }
-        .hodometro {
-            font-size: 16px;
-            margin-right: 5px;
-            float: right;
-        }
-        .valor {
-            font-weight: bold;
-            font-size: 20px;
-            margin-right: 5px;
-            float: right;
         }
         .modelo {
             text-decoration: underline;
             font-weight: bold;
             font-size: 25px;
         }
+        .hodometro {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        .valor {
+            font-weight: bold;
+            font-size: 20px;
+        }
 
+        /* Estilo para a descrição do veículo */
         .descricao {
             text-align: justify; /* Justifica o texto */
         }
@@ -138,7 +142,6 @@
                 font-size: 12px;
             }
 
-            /* Info sobre a imagem */
             .marca, .ano {
                 font-size: 12px;
             }
@@ -168,16 +171,20 @@
 
     <div class="carrossel">
         <div class="info-sobre-imagem">
-            <span class="marca"><?php echo htmlspecialchars($marca); ?></span>
-            <span class="modelo"><?php echo htmlspecialchars($modelo); ?></span>
-            <span class="ano"><?php echo htmlspecialchars($ano); ?></span>
-            <span class="hodometro"><?php echo htmlspecialchars($hodometro); ?></span>
-            <span class="valor"><?php echo htmlspecialchars($valor); ?></span>
+            <div>
+                <span class="marca"><?php echo htmlspecialchars($marca); ?></span>
+                <span class="modelo"><?php echo htmlspecialchars($modelo); ?></span>
+                <span class="ano"><?php echo htmlspecialchars($ano); ?></span>
+            </div>
+            <div>
+                <span class="valor"><?php echo htmlspecialchars($valor); ?></span>
+                <span class="hodometro"><?php echo htmlspecialchars($hodometro); ?></span>
+            </div>
         </div>
         <div class="slides">
             <?php foreach ($fotos as $foto): ?>
                 <div class="slide">
-                    <img src="<?php echo htmlspecialchars($foto); ?>" alt="Imagem do veículo" onclick="openModal('<?php echo htmlspecialchars($foto); ?>')">
+                    <img src="<?php echo htmlspecialchars($foto); ?>" alt="Imagem do veículo <?php echo htmlspecialchars($modelo); ?>" loading="lazy" onclick="openModal('<?php echo htmlspecialchars($foto); ?>')">
                 </div>
             <?php endforeach; ?>
         </div>
@@ -185,7 +192,7 @@
             <button onclick="moverSlide(-1)">&#10094;</button>
             <button onclick="moverSlide(1)">&#10095;</button>
         </div>
-    </div>
+    </div>    
 
     <div id="myModal" class="modal">
         <img class="modal-content" id="modalImage">
@@ -233,61 +240,39 @@
                 <?php echo htmlspecialchars($bairro); ?>
             </div>
         </div>
+    </div>
 
+    <div class="info-veiculo">
         <div class="linha_opcional">
-            <div class="coluna_opcional">
-                <?php if (!empty($troca)): ?>
-                    <strong>Aceita troca?</strong>
-                    <?php echo htmlspecialchars($troca); ?><br><br>
-                <?php endif; ?>
-        
-                <?php if (!empty($pecas)): ?>
-                    <strong>Retirada de peças?</strong>
-                    <?php echo htmlspecialchars($pecas); ?><br><br>
-                <?php endif; ?>
-        
-                <?php if (!empty($rodas)): ?>
-                    <strong>Venda das rodas?</strong>
-                    <?php echo htmlspecialchars($rodas); ?><br>
-                <?php endif; ?>
-            </div>
-        
-            <div class="coluna_opcional">
-                <?php if (!empty($estetica)): ?>
-                    <strong>Pintura e lataria:</strong>
-                    <?php echo htmlspecialchars($estetica); ?><br><br>
-                <?php endif; ?>
-        
-                <?php if (!empty($mecanica)): ?>
-                    <strong>Mecânica:</strong>
-                    <?php echo htmlspecialchars($mecanica); ?><br><br>
-                <?php endif; ?>
-        
-                <?php if (!empty($quantidade_donos)): ?>
-                    <strong>Donos:</strong>
-                    <?php echo htmlspecialchars($quantidade_donos); ?><br>
-                <?php endif; ?>
-            </div>
-        
-            <div class="coluna_opcional">
-                <?php if (!empty($condicao_rodas)): ?>
-                    <strong>Pneus:</strong>
-                    <?php echo htmlspecialchars($condicao_rodas); ?><br><br>
-                <?php endif; ?>
-        
-                <?php if (!empty($tipo_rodas)): ?>
-                    <strong>Tipo de rodas:</strong>
-                    <?php echo htmlspecialchars($tipo_rodas); ?><br><br>
-                <?php endif; ?>
-        
-                <?php if (!empty($tamanho_rodas)): ?>
-                    <strong>Tamanho das rodas:</strong>
-                    <?php echo htmlspecialchars($tamanho_rodas); ?><br>
-                <?php endif; ?>
-            </div>
-        </div>        
+            <?php
+            // Array de dados organizados em 3 colunas com até 3 itens em cada
+            $itens = [
+                'Aceita troca? ' => $troca,
+                'Retirada de peças? ' => $pecas,
+                'Venda das rodas? ' => $rodas,
+                'Pintura e lataria: ' => $estetica,
+                'Mecânica: ' => $mecanica,
+                'Donos: ' => $quantidade_donos,
+                'Pneus: ' => $condicao_rodas,
+                'Tipo de rodas: ' => $tipo_rodas,
+                'Tamanho das rodas: ' => $tamanho_rodas
+            ];
 
-        <div class="coluna descricao"><br>
+            // Função para renderizar os itens em uma estrutura de grid
+            foreach ($itens as $label => $valor) {
+                if (!empty($valor)) {
+                    echo '<div class="coluna_opcional">';
+                    echo "<strong>" . htmlspecialchars($label) . "</strong>";
+                    echo htmlspecialchars($valor) . "<br>";
+                    echo '</div>';
+                }
+            }
+            ?>
+        </div>
+    </div>
+
+    <div class="info-veiculo">
+        <div class="coluna descricao">
             <strong>Descrição:</strong>
             <?php echo nl2br($descricao); ?>
         </div>
