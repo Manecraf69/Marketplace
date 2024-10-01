@@ -115,7 +115,7 @@
             justify-content: space-between;
             align-items: center; /* Para alinhar os itens verticalmente */
         }
-        .marca, .ano {
+        .marca, .ano, .hodometro {
             font-size: 18px;
         }
         .modelo {
@@ -124,7 +124,6 @@
             font-size: 25px;
         }
         .hodometro {
-            font-size: 16px;
             margin-right: 5px;
         }
         .valor {
@@ -137,16 +136,16 @@
             text-align: justify; /* Justifica o texto */
         }
 
+        .slide { display: none; }
+        .slide.active { display: block; }
+
         @media (max-width: 700px) {
             .linha_opcional .coluna_opcional, .linha, .descricao{
                 font-size: 12px;
             }
 
-            .marca, .ano {
+            .marca, .ano, .hodometro{
                 font-size: 12px;
-            }
-            .hodometro {
-                font-size: 10px;
             }
             .valor {
                 font-size: 14px;
@@ -198,47 +197,40 @@
         <img class="modal-content" id="modalImage">
     </div>
 
+    <?php
+    // Dados do veículo
+    $info_veiculo = [
+        'Marca' => htmlspecialchars($marca),
+        'Modelo' => htmlspecialchars($modelo),
+        'Ano' => htmlspecialchars($ano),
+        'Valor à vista' => htmlspecialchars($valor),
+        'KMs rodados' => htmlspecialchars($hodometro),
+        'Telefone' => htmlspecialchars($telefone),
+        'Estado' => htmlspecialchars($estado),
+        'Cidade' => htmlspecialchars($cidade),
+        'Bairro' => htmlspecialchars($bairro)
+    ];
+
+    // Função para exibir as colunas
+    function exibirColunas($dados) {
+        foreach ($dados as $titulo => $valor) {
+            echo "<div class='coluna'><strong>{$titulo}:</strong><br>{$valor}</div>";
+        }
+    }
+    ?>
+
     <div class="info-veiculo">
         <div class="linha">
-            <div class="coluna">
-                <strong>Marca:</strong><br>
-                <?php echo htmlspecialchars($marca); ?>
-            </div>
-            <div class="coluna">
-                <strong>Modelo:</strong><br>
-                <?php echo htmlspecialchars($modelo); ?>
-            </div>
-            <div class="coluna">
-                <strong>Ano:</strong><br>
-                <?php echo htmlspecialchars($ano); ?>
-            </div>
-            <div class="coluna">
-                <strong>Valor à vista:</strong><br>
-                <?php echo htmlspecialchars($valor); ?>
-            </div>
-            <div class="coluna">
-                <strong>KMs rodados:</strong><br>
-                <?php echo htmlspecialchars($hodometro); ?> 
-            </div>
+            <?php 
+            // Exibe a primeira linha de informações
+            exibirColunas(array_slice($info_veiculo, 0, 5)); 
+            ?>
         </div>
-
         <div class="linha">
-            <div class="coluna">
-                <strong>Telefone:</strong><br>
-                <?php echo htmlspecialchars($telefone); ?>
-            </div>
-            <div class="coluna">
-                <strong>Estado:</strong><br>
-                <?php echo htmlspecialchars($estado); ?> 
-            </div>
-            <div class="coluna">
-                <strong>Cidade:</strong><br>
-                <?php echo htmlspecialchars($cidade); ?>
-            </div>
-            <div class="coluna">
-                <strong>Bairro:</strong><br>
-                <?php echo htmlspecialchars($bairro); ?>
-            </div>
+            <?php 
+            // Exibe a segunda linha de informações
+            exibirColunas(array_slice($info_veiculo, 5)); 
+            ?>
         </div>
     </div>
 
@@ -285,17 +277,11 @@
             const slides = document.querySelectorAll('.slide');
             const nav = document.getElementById('carouselNav');
             if (slides.length > 0) {
-                for (let i = 0; i < slides.length; i++) {
-                    slides[i].style.display = 'none';
-                }
-                slides[slideIndex].style.display = 'block';
-
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[slideIndex].classList.add('active');
+                
                 // Ocultar navegação se houver apenas uma imagem
-                if (slides.length === 1) {
-                    nav.style.display = 'none';
-                } else {
-                    nav.style.display = 'flex';
-                }
+                nav.style.display = slides.length === 1 ? 'none' : 'flex';
             }
         }
 
@@ -328,6 +314,12 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             mostrarSlides();
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('myModal').style.display = 'none';
+            }
         });
     </script>
 </body>

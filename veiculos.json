@@ -2,32 +2,108 @@
     "carro": {
         "marcas": [
             {
-                "nome": "Ford",
-                "modelos": ["Fiesta", "Focus", "Mustang"]
+                "nome": "Chevrolet",
+                "modelos": ["Agile", "Blazer", "Celta", "Cobalt", "Cruze", "Equinox", "Joy", "Montana", "Onix", "Prisma", "S10", "Spin", "Tracker", "Trailblazer", "Vectra", "Veraneio", "Viva", "Zafira", "ZL1", "ZR1"]
             },
             {
-                "nome": "Chevrolet",
-                "modelos": ["Onix", "Cruze", "Spin"]
+                "nome": "Citroën",
+                "modelos": ["Aircross", "C3", "C4", "C4 Cactus", "C5", "DS3", "DS5", "Grand C4 Picasso", "Jumpy", "Nemo", "Saxo", "SpaceTourer", "Xsara", "Xsara Picasso", "ZX", "ZX Rallye", "Berlingo", "Evasion", "Furgo", "LNA"]
+            },
+            {
+                "nome": "Fiat",
+                "modelos": ["147", "Argo", "Brava", "Bravo", "Cronos", "Doblò", "Fiorino", "Freemont", "Grand Siena", "Idea", "Linea", "Marea", "Palio", "Panda", "Punto", "Siena", "Strada", "Toro", "Uno", "Weekend"]
+            },
+            {
+                "nome": "Ford",
+                "modelos": ["EcoSport", "Edge", "Escort", "Fiesta", "Focus", "Fusion", "Ka", "Ka Sedan", "Kuga", "Maverick", "Mustang", "Pampa", "Ranger", "Territory", "Verona", "Versailles", "Focus Fastback", "Galaxie", "Taurus", "Troller"]
+            },
+            {
+                "nome": "Honda",
+                "modelos": ["Accord", "City", "Civic", "CR-V", "Fit", "HR-V", "Insight", "Legend", "NSX", "Odyssey", "Passport", "Pilot", "Prelude", "Ridgeline", "S2000", "WR-V", "ZR-V", "Jazz", "Shuttle", "Vezel"]
+            },
+            {
+                "nome": "Hyundai",
+                "modelos": ["Azera", "Creta", "Elantra", "HB20", "HB20S", "Ioniq", "Kona", "Santa Fe", "Sonata", "Tucson", "Veloster", "Venue", "Veracruz", "Atos", "Accent", "Galloper", "Matrix", "Scoupe", "Starex", "Xcient"]
+            },
+            {
+                "nome": "Jeep",
+                "modelos": ["Cherokee", "Commander", "Compass", "Gladiator", "Grand Cherokee", "Patriot", "Renegade", "Wrangler", "Willys", "Avenger", "J6", "Jeepster", "J12", "J20", "Liberty", "Scrambler", "Wagoneer", "CJ5", "CJ7", "J8"]
+            },
+            {
+                "nome": "Nissan",
+                "modelos": ["350Z", "370Z", "Altima", "Frontier", "GT-R", "Kicks", "Leaf", "Livina", "March", "Maxima", "Murano", "Pathfinder", "Qashqai", "Quest", "Rogue", "Sentra", "Tiida", "Versa", "X-Trail", "Xterra"]
+            },
+            {
+                "nome": "Peugeot",
+                "modelos": ["106", "206", "207", "208", "3008", "308", "408", "5008", "Bipper", "Boxer", "Expert", "Hoggar", "Partner", "RCZ", "Traveller", "405", "406", "407", "607", "807"]
+            },
+            {
+                "nome": "Renault",
+                "modelos": ["Captur", "Clio", "Duster", "Fluence", "Kangoo", "Kwid", "Logan", "Megane", "Sandero", "Scenic", "Stepway", "Symbol", "Trafic", "Twingo", "Zoe", "19", "21", "Espace", "Express", "Latitude"]
             },
             {
                 "nome": "Toyota",
-                "modelos": ["Corolla", "Hilux", "Yaris"]
+                "modelos": ["Corolla", "Etios", "Hilux", "Land Cruiser", "Prius", "RAV4", "SW4", "Yaris", "Avalon", "Camry", "Crown", "FJ Cruiser", "Highlander", "Previa", "Supra", "Tacoma", "Tundra", "Venza", "Vios", "Sienna"]
+            },
+            {
+                "nome": "Volkswagen",
+                "modelos": ["Amarok", "Bora", "CrossFox", "Fox", "Golf", "Gol", "Jetta", "Kombi", "Nivus", "Passat", "Polo", "Saveiro", "T-Cross", "Taos", "Tiguan", "Touareg", "Up!", "Virtus", "Voyage", "Passat"]
+            },
+            {
+                "nome": "Volvo",
+                "modelos": ["C30", "C40", "S40", "S60", "S90", "V40", "V60", "V90", "XC40", "XC60", "XC90", "850", "960", "PV544", "740", "760", "940", "240", "1800", "Amazon"]
+            },
+            {
+                "nome": "Audi",
+                "modelos": ["A1", "A3", "A4", "A5", "A6", "A7", "A8", "Q3", "Q5", "Q7", "Q8", "R8", "RS3", "RS4", "RS6", "S3", "S5", "TT", "TTS", "V8"]
+            },
+            {
+                "nome": "BMW",
+                "modelos": ["118i", "218i", "320i", "330i", "420i", "530e", "540i", "M2", "M3", "M4", "M5", "M8", "X1", "X2", "X3", "X4", "X5", "X6", "Z4", "i3"]
             }
         ]
     },
     "moto": {
         "marcas": [
             {
-                "nome": "Honda",
-                "modelos": ["CB 500", "Biz", "Hornet"]
+                "nome": "Dafra",
+                "modelos": ["Apache", "Citycom", "Horizon", "Kansas", "Maxsym", "Next", "Riva", "Speed", "Super", "Symphony", "Zig", "Amadeus", "Cruiser", "Fiddle", "GTS", "HD", "Joy", "NH", "Targa", "Zontes"]
             },
             {
-                "nome": "Yamaha",
-                "modelos": ["Fazer", "MT-03", "XT 660"]
+                "nome": "Harley-Davidson",
+                "modelos": ["Breakout", "Electra Glide", "Fat Boy", "Fat Bob", "Iron 883", "Low Rider", "Road Glide", "Road King", "Softail", "Sport Glide", "Sportster", "Street 750", "Street Bob", "SuperLow", "Touring", "V-Rod", "Heritage", "Wide Glide", "LiveWire", "Nightster"]
+            },
+            {
+                "nome": "Honda",
+                "modelos": ["Biz", "Bros", "CB 500", "CB 650", "CB 1000", "CG 125", "CG 150", "CG 160", "Hornet", "Lead", "NC 750", "PCX", "Pop 100", "SH 150", "Shadow", "Titan", "XRE 300", "Africa Twin", "CBR 600", "CRF 230"]
+            },
+            {
+                "nome": "Haojue",
+                "modelos": ["Chopper", "DK 150", "DR 160", "GSR 125", "GSR 150", "GTR 150", "HL 150", "Lindy 125", "Master Ride", "NK 150", "NX 150", "Plus", "Sport", "TR 150", "TR 250", "VR 150", "XF 125", "XF 160", "Xpress", "YBR 125"]
+            },
+            {
+                "nome": "Kawasaki",
+                "modelos": ["ER-6n", "Ninja 250", "Ninja 300", "Ninja 400", "Ninja 650", "Ninja ZX-6R", "Ninja ZX-10R", "Versys 300", "Versys 650", "Z1000", "Z300", "Z400", "Z650", "Z900", "Vulcan", "W800", "KLX 250", "KLX 450", "KX 450", "KX 250"]
             },
             {
                 "nome": "Suzuki",
-                "modelos": ["GSX-R", "V-Strom", "Intruder"]
+                "modelos": ["Bandit 650", "Burgman 125", "Burgman 400", "DR 650", "GS 500", "GSX 750", "GSX-R 1000", "Hayabusa", "Intruder 125", "Intruder 250", "Katana", "Savage 650", "Yes 125", "V-Strom 650", "V-Strom 1000", "GSX-S 750", "RM-Z 450", "SV 650", "Marauder 800", "GSR 750"]
+            },
+            {
+                "nome": "Triumph",
+                "modelos": ["Bonneville", "Daytona 675", "Rocket 3", "Scrambler", "Speed Triple", "Speed Twin", "Street Triple", "Thruxton", "Tiger 800", "Tiger 1200", "Tiger Explorer", "Trident 660", "Trophy", "America", "Sprint ST", "Thunderbird", "T120", "T100", "Rocket X", "Tigress"]
+            },
+            {
+                "nome": "Yamaha",
+                "modelos": ["Crypton", "Factor", "Fazer", "FZ6", "FZ8", "MT-03", "MT-07", "MT-09", "NMax", "R1", "R3", "R6", "Tenere 250", "Tenere 660", "Tracer 900", "Virago 250", "Virago 535", "XJ6", "XT 660", "XTZ 125"]
+            },
+            {
+                "nome": "BMW",
+                "modelos": ["C 400", "F 800", "F 850", "F 900", "G 310", "K 1600", "R 1200", "R 1250", "S 1000", "S 1000 RR", "G 650", "G 450", "R NineT", "HP4", "F 750", "F 650", "F 800 GS", "K 1300", "S 1000 XR", "G 310 GS"]
+            },
+            {
+                "nome": "Ducati",
+                "modelos": ["Diavel", "Hypermotard", "Hyperstrada", "Monster 1200", "Monster 797", "Multistrada 950", "Multistrada 1260", "Panigale V2", "Panigale V4", "Scrambler 800", "Scrambler 1100", "Streetfighter V4", "SuperSport", "XDiavel", "Monster 821", "Monster 797", "Superleggera", "Hypermotard SP", "Streetfighter V2", "Desmosedici"]
             }
         ]
     }

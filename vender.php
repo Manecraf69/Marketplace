@@ -176,7 +176,7 @@
                 <div class="coluna">
                     <label for="tipo_veiculo">Tipo de veículo: <span style="color: red;">*</span></label>
                     <select name="tipo_veiculo" id="tipo_veiculo" required onchange="onVehicleTypeChange()">
-                        <option value="" disabled selected>Definir</option>
+                        <option value="" disabled selected>Carro / Moto</option>
                         <option value="carro">Carro</option>
                         <option value="moto">Moto</option>
                     </select>
@@ -185,18 +185,14 @@
                 <!-- Marca (Inicialmente Invisível) -->
                 <div class="coluna" id="marca_div" style="display: none;">
                     <label for="marca">Marca: <span style="color: red;">*</span></label>
-                    <select name="marca" id="marca" required onchange="onMarcaChange()">
-                        <option value="">Selecione uma marca</option>
-                    </select>
+                    <select name="marca" id="marca" required onchange="onMarcaChange()"></select>
                     <input type="text" name="marca_outro" id="marca_outro" placeholder="Digite a marca" style="display:none;">
                 </div>
 
                 <!-- Modelo (Inicialmente Invisível) -->
                 <div class="coluna" id="modelo_div" style="display: none;">
                     <label for="modelo">Modelo: <span style="color: red;">*</span></label>
-                    <select name="modelo" id="modelo" required>
-                        <option value="">Selecione um modelo</option>
-                    </select>
+                    <select name="modelo" id="modelo" required></select>
                     <input type="text" name="modelo_outro" id="modelo_outro" placeholder="Digite o modelo" style="display:none;">
                 </div>
             </div>
@@ -296,7 +292,7 @@
                 <div class="coluna">
                     <label for="troca">Aceita troca?</label>
                     <select name="troca" id="troca">
-                        <option value="" disabled selected>Definir</option>
+                        <option value="" disabled selected>Sim / Não</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
                     </select>
@@ -317,7 +313,7 @@
                 <div class="coluna">
                     <label for="rodas">Venda das rodas?</label>
                     <select name="rodas" id="rodas">
-                        <option value="" disabled selected>Definir</option>
+                        <option value="" disabled selected>Sim / Não</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
                     </select>
@@ -465,18 +461,6 @@
             e.target.setSelectionRange(kms.length, kms.length);
         });
 
-        // Formatar o valor do ano
-        document.getElementById('ano').addEventListener('input', function (e) {
-            let ano = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
-            
-            // Limita a 4 dígitos
-            if (ano.length > 4) {
-                ano = ano.substring(0, 4);
-            }
-
-            e.target.value = ano; // Atualiza o campo com o valor limitado a 4 dígitos
-        });
-
         // Formatar o valor do tamanho da roda
         document.getElementById('tamanho_rodas').addEventListener('input', function (e) {
             let aro = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
@@ -616,30 +600,11 @@
             document.getElementById('popup').style.display = 'none';
         });
 
-        function toggleMarcaInput() {
-            const select = document.getElementById('marca');
-            const otherInput = document.getElementById('marca_outro');
-            if (select.value === 'Outro') {
-                otherInput.style.display = 'block';
-                otherInput.required = true; // Torna o campo obrigatório
-            } else {
-                otherInput.style.display = 'none';
-                otherInput.required = false; // Remove a obrigatoriedade
-                otherInput.value = ''; // Limpa o campo se não for "Outro"
-            }
-        }
-
-        function toggleModelInput() {
-            const select = document.getElementById('modelo');
-            const otherInput = document.getElementById('modelo_outro');
-            if (select.value === 'Outro') {
-                otherInput.style.display = 'block';
-                otherInput.required = true; // Torna o campo obrigatório
-            } else {
-                otherInput.style.display = 'none';
-                otherInput.required = false; // Remove a obrigatoriedade
-                otherInput.value = ''; // Limpa o campo se não for "Outro"
-            }
+        // Função genérica para alternar a exibição de inputs baseados em seleção "Outro"
+        function toggleInput(selectElementId, inputElementId) {
+            const select = document.getElementById(selectElementId);
+            const input = document.getElementById(inputElementId);
+            input.style.display = (select.value === 'Outro') ? 'block' : 'none';
         }
 
         // Carregar dados externos (marcas e modelos) de um arquivo externo
@@ -652,7 +617,38 @@
                 vehicleData = await response.json();
             } catch (error) {
                 console.error('Erro ao carregar dados de veículos:', error);
+                alert('Falha ao carregar dados de veículos. Por favor, tente novamente mais tarde.');
             }
+        }
+
+        // Função para limpar as opções de um select
+        function clearSelect(select) {
+            while (select.firstChild) {
+                select.removeChild(select.firstChild);
+            }
+        }
+
+        // Função para popular um select com opções
+        function populateSelect(select, options, defaultOptionText = 'Selecione uma opção') {
+            clearSelect(select);
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.text = defaultOptionText;
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            select.appendChild(defaultOption);
+
+            options.forEach(optionValue => {
+                const option = document.createElement('option');
+                option.value = optionValue;
+                option.text = optionValue;
+                select.appendChild(option);
+            });
+
+            const outroOption = document.createElement('option');
+            outroOption.value = 'Outro';
+            outroOption.text = 'Outro';
+            select.appendChild(outroOption);
         }
 
         // Função chamada quando o tipo de veículo é alterado
@@ -660,29 +656,18 @@
             const tipoVeiculo = document.getElementById('tipo_veiculo').value;
             const marcaDiv = document.getElementById('marca_div');
             const marcaSelect = document.getElementById('marca');
-
+            
             // Limpar seleção anterior de marca e modelo
-            marcaSelect.innerHTML = '<option value="">Selecione uma marca</option>';
+            populateSelect(marcaSelect, []);
             document.getElementById('modelo_div').style.display = 'none';
-            document.getElementById('modelo').innerHTML = '<option value="">Selecione um modelo</option>';
+            populateSelect(document.getElementById('modelo'), []);
             document.getElementById('modelo_outro').style.display = 'none';
 
             // Exibe o campo de marca e carrega as opções conforme o tipo de veículo selecionado
             if (tipoVeiculo) {
                 marcaDiv.style.display = 'block';
-                const marcas = vehicleData[tipoVeiculo].marcas;
-
-                marcas.forEach(marca => {
-                    const option = document.createElement('option');
-                    option.value = marca.nome;
-                    option.text = marca.nome;
-                    marcaSelect.appendChild(option);
-                });
-
-                const outroOption = document.createElement('option');
-                outroOption.value = 'Outro';
-                outroOption.text = 'Outro';
-                marcaSelect.appendChild(outroOption);
+                const marcas = vehicleData[tipoVeiculo].marcas.map(m => m.nome);
+                populateSelect(marcaSelect, marcas, 'Selecione uma marca');
             } else {
                 marcaDiv.style.display = 'none';
             }
@@ -693,45 +678,33 @@
             const marca = document.getElementById('marca').value;
             const modeloDiv = document.getElementById('modelo_div');
             const modeloSelect = document.getElementById('modelo');
-            const marcaOutro = document.getElementById('marca_outro');
             const tipoVeiculo = document.getElementById('tipo_veiculo').value;
 
             // Limpar seleção anterior de modelo
-            modeloSelect.innerHTML = '<option value="">Selecione um modelo</option>';
+            populateSelect(modeloSelect, []);
             modeloDiv.style.display = 'none';
 
             if (marca === 'Outro') {
-                marcaOutro.style.display = 'block';
+                document.getElementById('marca_outro').style.display = 'block';
                 modeloDiv.style.display = 'block';
                 document.getElementById('modelo').style.display = 'none';
                 document.getElementById('modelo_outro').style.display = 'block';
             } else {
-                marcaOutro.style.display = 'none';
+                document.getElementById('marca_outro').style.display = 'none';
                 document.getElementById('modelo').style.display = 'block';
                 document.getElementById('modelo_outro').style.display = 'none';
 
-                // Exibe o campo de modelo e carrega as opções conforme a marca selecionada
                 if (marca) {
-                    modeloDiv.style.display = 'block';
                     const modelos = vehicleData[tipoVeiculo].marcas.find(m => m.nome === marca).modelos;
-
-                    modelos.forEach(modelo => {
-                        const option = document.createElement('option');
-                        option.value = modelo;
-                        option.text = modelo;
-                        modeloSelect.appendChild(option);
-                    });
-
-                    const outroOption = document.createElement('option');
-                    outroOption.value = 'Outro';
-                    outroOption.text = 'Outro';
-                    modeloSelect.appendChild(outroOption);
+                    populateSelect(modeloSelect, modelos, 'Selecione um modelo');
+                    modeloDiv.style.display = 'block';
                 }
             }
         }
 
-        // Chamar a função de alternância para o modelo
-        document.getElementById('modelo').addEventListener('change', toggleModelInput);
+        // Chamar a função de alternância para o modelo e marca
+        document.getElementById('marca').addEventListener('change', () => toggleInput('marca', 'marca_outro'));
+        document.getElementById('modelo').addEventListener('change', () => toggleInput('modelo', 'modelo_outro'));
 
         // Carregar dados de marcas e modelos assim que a página carregar
         window.onload = loadVehicleData;
