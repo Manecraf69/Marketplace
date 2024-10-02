@@ -123,12 +123,10 @@
             font-weight: bold;
             font-size: 25px;
         }
-        .hodometro {
-            margin-right: 5px;
-        }
         .valor {
             font-weight: bold;
             font-size: 20px;
+            margin-right: 5px
         }
 
         /* Estilo para a descrição do veículo */
@@ -176,8 +174,8 @@
                 <span class="ano"><?php echo htmlspecialchars($ano); ?></span>
             </div>
             <div>
-                <span class="valor"><?php echo htmlspecialchars($valor); ?></span>
                 <span class="hodometro"><?php echo htmlspecialchars($hodometro); ?></span>
+                <span class="valor"><?php echo htmlspecialchars($valor); ?></span>
             </div>
         </div>
         <div class="slides">
@@ -203,8 +201,8 @@
         'Marca' => htmlspecialchars($marca),
         'Modelo' => htmlspecialchars($modelo),
         'Ano' => htmlspecialchars($ano),
-        'Valor à vista' => htmlspecialchars($valor),
         'KMs rodados' => htmlspecialchars($hodometro),
+        'Valor à vista' => htmlspecialchars($valor),
         'Telefone' => htmlspecialchars($telefone),
         'Estado' => htmlspecialchars($estado),
         'Cidade' => htmlspecialchars($cidade),

@@ -347,6 +347,7 @@
                         <option value="Apenas 1 dono">Apenas 1 dono</option>
                         <option value="Teve 2 donos">Teve 2 donos</option>
                         <option value="3 ou mais">3 ou mais</option>
+                        <option value="Nenhum (0km)">Nenhum (0km)</option>
                     </select>
                 </div>
             </div>

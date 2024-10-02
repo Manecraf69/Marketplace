@@ -104,7 +104,7 @@
             echo '<img src="' . $primeira_foto . '" alt="' . $modelo . '">';
             echo '</a>';
             echo '<div class="veiculo-info">';
-            echo '<div class="linha1"><span>' . $marca . '</span><span>' . $modelo . '</span></div>';
+            echo '<div class="linha1"><span>' . substr($marca, 0, 11) . '</span><span>' . substr($modelo, 0, 11) . '</span></div>';
             echo '<div class="linha2"><span>' . $ano . '</span><span> ' . $valor . '</span></div>';
             echo '<div class="linha3"><span>' . $hodometro . ' </span><span> ' . $estado . " " . substr($cidade, 0, 11) . '</span></div>';
             echo '</div>';

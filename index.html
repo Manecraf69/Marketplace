@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrar Veículos</title>
+    <style>
+        /* Estilos básicos */
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label { font-weight: bold; }
+        .veiculo { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        /* Estilos para alinhar os botões */
+        .buttons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Formulário de Filtros -->
+    <form id="filtroForm">
+        <button type="button" onclick="aplicarFiltros()">Filtrar</button>
+        <button type="button" onclick="limparFiltros()">Limpar Filtros</button>
+
+        <label for="tipo_veiculo">Tipo:</label>
+        <select id="tipo_veiculo" onchange="atualizarFiltros('tipo_veiculo')">
+            <option value="">Todos</option>
+        </select>
+
+        <label for="marca">Marca:</label>
+        <select id="marca" onchange="atualizarFiltros('marca')">
+            <option value="">Todas</option>
+        </select>
+
+        <label for="modelo">Modelo:</label>
+        <select id="modelo" onchange="atualizarFiltros('modelo')">
+            <option value="">Todos</option>
+        </select>
+
+        <label for="ano">Ano:</label>
+        <select id="ano" onchange="atualizarFiltros('ano')">
+            <option value="">Todos</option>
+        </select>
+    </form>
+
+    <!-- Div onde os resultados filtrados serão exibidos -->
+    <div id="resultado"></div>
+
+    <script>
+        let veiculos = [];
+
+        // Função para buscar os dados do PHP
+        async function carregarDados() {
+            const response = await fetch('get_veiculos.php');
+            veiculos = await response.json();
+            preencherFiltros(); // Preencher os filtros de marca, modelo e ano
+            exibirVeiculos(veiculos); // Exibir todos os veículos inicialmente
+        }
+
+        // Preencher os filtros de marca, modelo e ano com ordenação
+        function preencherFiltros() {
+            const tipos = [...new Set(veiculos.map(veiculo => veiculo.tipo_veiculo))].sort();
+            const marcas = [...new Set(veiculos.map(veiculo => veiculo.marca))].sort();
+            const modelos = [...new Set(veiculos.map(veiculo => veiculo.modelo))].sort();
+            const anos = [...new Set(veiculos.map(veiculo => veiculo.ano))].sort((a, b) => b - a); // Ordena anos em ordem decrescente
+
+            preencherSelect('tipo_veiculo', tipos);
+            preencherSelect('marca', marcas);
+            preencherSelect('modelo', modelos);
+            preencherSelect('ano', anos);
+        }
+
+        // Função para preencher um select (marca, modelo, ano)
+        function preencherSelect(id, valores, valorSelecionado = '') {
+            const select = document.getElementById(id);
+            select.innerHTML = '<option value="">Todos</option>'; // Limpar opções anteriores
+            valores.forEach(valor => {
+                const option = document.createElement('option');
+                option.value = valor;
+                option.textContent = valor;
+                if (valor === valorSelecionado) {
+                    option.selected = true; // Manter a seleção anterior
+                }
+                select.appendChild(option);
+            });
+        }
+
+        function atualizarFiltros(campoAlterado) {
+            const tipoSelecionado = document.getElementById('tipo_veiculo').value;
+            const marcaSelecionada = document.getElementById('marca').value;
+            const modeloSelecionado = document.getElementById('modelo').value;
+            const anoSelecionado = document.getElementById('ano').value;
+
+            let veiculosFiltrados = veiculos;
+
+            if (campoAlterado === 'tipo_veiculo' && tipoSelecionado) {
+                veiculosFiltrados = veiculosFiltrados.filter(veiculo => veiculo.tipo_veiculo === tipoSelecionado);
+                const marcasFiltradas = [...new Set(veiculosFiltrados.map(veiculo => veiculo.marca))].sort();
+                const modelosFiltrados = [...new Set(veiculosFiltrados.map(veiculo => veiculo.modelo))].sort();
+                const anosFiltrados = [...new Set(veiculosFiltrados.map(veiculo => veiculo.ano))].sort((a, b) => b - a);
+
+                preencherSelect('marca', marcasFiltradas);
+                preencherSelect('modelo', modelosFiltrados);
+                preencherSelect('ano', anosFiltrados);
+            }
+
+            if (campoAlterado === 'marca' && marcaSelecionada) {
+                veiculosFiltrados = veiculosFiltrados.filter(veiculo => veiculo.marca === marcaSelecionada);
+                const modelosFiltrados = [...new Set(veiculosFiltrados.map(veiculo => veiculo.modelo))].sort();
+                const anosFiltrados = [...new Set(veiculosFiltrados.map(veiculo => veiculo.ano))].sort((a, b) => b - a);
+                
+                preencherSelect('modelo', modelosFiltrados);
+                preencherSelect('ano', anosFiltrados);
+
+                // Se houver apenas um modelo disponível, selecionar automaticamente
+                if (modelosFiltrados.length === 1) {
+                    document.getElementById('modelo').value = modelosFiltrados[0];
+                }
+                // Se houver apenas um tipo de veículo, selecionar automaticamente
+                if (tiposFiltrados.length === 1) {
+                    document.getElementById('tipo_veiculo').value = tiposFiltrados[0];
+                }
+            }
+
+            if (campoAlterado === 'modelo' && modeloSelecionado) {
+                veiculosFiltrados = veiculos.filter(veiculo => veiculo.modelo === modeloSelecionado);
+                const veiculoModelo = veiculos.find(veiculo => veiculo.modelo === modeloSelecionado);
+                const tiposFiltrados = [...new Set(veiculosFiltrados.map(veiculo => veiculo.tipo_veiculo))].sort();
+                const anosFiltrados = [...new Set(veiculosFiltrados.map(veiculo => veiculo.ano))].sort((a, b) => b - a);
+                const marcasFiltradas = [...new Set(veiculosFiltrados.map(veiculo => veiculo.marca))].sort();
+                
+                preencherSelect('tipo_veiculo', tiposFiltrados);
+                preencherSelect('marca', marcasFiltradas);
+                preencherSelect('ano', anosFiltrados, anoSelecionado);
+
+                document.getElementById('tipo_veiculo').value = veiculoModelo.tipo_veiculo;
+                document.getElementById('marca').value = veiculoModelo.marca;
+            }
+
+            if (campoAlterado === 'ano' && anoSelecionado) {
+                veiculosFiltrados = veiculos.filter(veiculo => veiculo.ano === anoSelecionado);
+                const tiposFiltrados = [...new Set(veiculosFiltrados.map(veiculo => veiculo.tipo_veiculo))].sort();
+                const marcasFiltradas = [...new Set(veiculosFiltrados.map(veiculo => veiculo.marca))].sort();
+                const modelosFiltrados = [...new Set(veiculosFiltrados.map(veiculo => veiculo.modelo))].sort();
+                preencherSelect('tipo_veiculo', tiposFiltrados);
+                preencherSelect('marca', marcasFiltradas);
+                preencherSelect('modelo', modelosFiltrados);
+
+                // Se houver apenas um tipo de veículo, selecionar automaticamente
+                if (tiposFiltrados.length === 1) {
+                    document.getElementById('tipo_veiculo').value = tiposFiltrados[0];
+                }
+            }
+        }
+
+        // Função para exibir os veículos no HTML
+        function exibirVeiculos(veiculosFiltrados) {
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = ''; // Limpar resultados anteriores
+
+            veiculosFiltrados.forEach(veiculo => {
+                const veiculoDiv = document.createElement('div');
+                veiculoDiv.classList.add('veiculo');
+                veiculoDiv.innerHTML = `
+                    <p><strong>Marca:</strong> ${veiculo.marca}</p>
+                    <p><strong>Modelo:</strong> ${veiculo.modelo}</p>
+                    <p><strong>Ano:</strong> ${veiculo.ano}</p>
+                    <p><strong>Valor:</strong> ${veiculo.valor}</p>
+                `;
+                resultadoDiv.appendChild(veiculoDiv);
+            });
+        }
+
+        // Função para aplicar os filtros
+        function aplicarFiltros() {
+            const tipoFiltro = document.getElementById('tipo_veiculo').value;
+            const marcaFiltro = document.getElementById('marca').value;
+            const modeloFiltro = document.getElementById('modelo').value;
+            const anoFiltro = document.getElementById('ano').value;
+
+            const veiculosFiltrados = veiculos.filter(veiculo => {
+                return (tipoFiltro === '' || veiculo.tipo_veiculo === tipoFiltro) &&
+                    (marcaFiltro === '' || veiculo.marca === marcaFiltro) &&
+                    (modeloFiltro === '' || veiculo.modelo === modeloFiltro) &&
+                    (anoFiltro === '' || veiculo.ano === anoFiltro);
+            });
+
+            exibirVeiculos(veiculosFiltrados); // Exibir os veículos filtrados
+        }
+
+        // Função para limpar os filtros
+        function limparFiltros() {
+            document.getElementById('tipo_veiculo').value = '';
+            document.getElementById('marca').value = '';
+            document.getElementById('modelo').value = '';
+            document.getElementById('ano').value = '';
+            
+            // Chamar a função para restaurar todas as opções
+            preencherFiltros();
+
+            // Exibir todos os veículos
+            exibirVeiculos(veiculos);
+        }
+
+        // Carregar os dados quando a página é carregada
+        window.onload = carregarDados;
+    </script>
+</body>
+</html>
