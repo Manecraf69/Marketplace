@@ -2,7 +2,9 @@
 // Recebe os dados do formulário
 $tipo_veiculo = $_POST['tipo_veiculo'];
 $marca = $_POST['marca'];
+$marca_outro = $_POST['marca_outro'];
 $modelo = $_POST['modelo'];
+$modelo_outro = $_POST['modelo_outro'];
 $ano = $_POST['ano'];
 $valor = $_POST['valor'];
 $descricao = $_POST['descricao'];
@@ -20,6 +22,16 @@ $quantidade_donos = $_POST['quantidade_donos'];
 $condicao_rodas = $_POST['condicao_rodas'];
 $tipo_rodas = $_POST['tipo_rodas'];
 $tamanho_rodas = $_POST['tamanho_rodas'];
+
+// Verifica se a marca é "Outro", se sim, usa o valor de "marca_outro"
+if ($marca === 'Outro') {
+    $marca = $marca_outro;
+}
+
+// Verifica se o modelo é "null" ou "Outro", se sim, usa o valor de "modelo_outro"
+if ($modelo === null || $modelo === 'Outro') {
+    $modelo = $modelo_outro;
+}
 
 // Define o diretório base para armazenar os veículos
 $diretorio_base = 'veiculos/';

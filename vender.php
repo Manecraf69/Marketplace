@@ -40,30 +40,22 @@
             resize: none; /* Evita redimensionamento manual */
         }
 
-        /* Estilo do botão antes de todos os campos estarem preenchidos (desabilitado) */
+        /* Estilo do botão de confirmar cadastro */
         .confirmar-btn {
             margin-top: 20px;
             padding: 10px;
-            background-color: #888888; /* Cor cinza desabilitado */
+            background-color: #11c020;
             color: #ffffff;
             border: none;
-            cursor: not-allowed; /* Cursor indica que o botão está desabilitado */
+            cursor: pointer;
             width: 50%;
             margin-left: auto;
             margin-right: auto;
             display: block;
             margin-bottom: 50px;
-            opacity: 0.6; /* Transparência para indicar inatividade */
         }
 
-        /* Estilo do botão após todos os campos estarem preenchidos (habilitado) */
-        .confirmar-btn.enabled {
-            background-color: #11c020; /* Cor verde habilitado */
-            cursor: pointer; /* Cursor padrão de clique */
-            opacity: 1; /* Remove a transparência */
-        }
-
-        .confirmar-btn.enabled:hover {
+        .confirmar-btn:hover {
             background-color: #457945; /* Cor ao passar o mouse por cima */
         }
 
@@ -477,37 +469,6 @@
             e.target.setSelectionRange(aro.length, aro.length);
         });
 
-        // Função de validação
-        function validarFormulario() {
-            const tipoVeiculo = document.getElementById('tipo_veiculo').value;
-            const marca = document.getElementById('marca').value.trim();
-            const modelo = document.getElementById('modelo').value.trim();
-            const ano = document.getElementById('ano').value.trim();
-            const hodometro = document.getElementById('hodometro').value.trim();
-            const valor = document.getElementById('valor').value.trim();
-            const telefone = document.getElementById('telefone').value;
-            const imagens = document.getElementById('imagem').files.length > 0;
-            const descricao = document.getElementById('descricao').value.trim();
-            const estado = document.getElementById('estado').value.trim();
-
-            // Verifica se todos os campos obrigatórios estão preenchidos
-            const isFormValid = tipoVeiculo && marca && modelo && ano && hodometro && valor && telefone && imagens && estado && descricao.length > 0;
-
-            const confirmarBtn = document.getElementById('confirmarBtn');
-            
-            // Ativa ou desativa o botão baseado na validação
-            if (isFormValid) {
-                confirmarBtn.classList.add('enabled');
-            } else {
-                confirmarBtn.classList.remove('enabled');
-            }
-        }
-
-        // Chama automaticamente a função ao detectar uma entrada de dados nos inputs
-        document.querySelectorAll('input, textarea').forEach(element => {
-            element.addEventListener('input', validarFormulario);
-        });
-
         // Configura o input de texto da descrição
         document.getElementById('descricao').addEventListener('input', function () {
             const descricao = this;
@@ -543,9 +504,6 @@
                 document.getElementById('estado').value = "";
                 document.getElementById('cidade').value = "";
                 document.getElementById('bairro').value = "";
-                
-                // Chama a função para desativar a aparência do botão
-                validarFormulario();
             }
 
             else if (cep.length === 8) {
@@ -557,9 +515,6 @@
                             document.getElementById('estado').value = data.uf;
                             document.getElementById('cidade').value = data.localidade;
                             document.getElementById('bairro').value = data.bairro;
-                            
-                            // Chama a função para ativar a aparência do botão
-                            validarFormulario();
 
                             // Esconde o aviso de CEP inválido
                             document.getElementById('textoOculto').style.display = 'none';
@@ -685,12 +640,25 @@
             modeloDiv.style.display = 'none';
 
             if (marca === 'Outro') {
+                // Marca "Outro" selecionada
                 document.getElementById('marca_outro').style.display = 'block';
+                document.getElementById('marca').removeAttribute('required');
+                document.getElementById('marca_outro').setAttribute('required', 'required');
+
                 modeloDiv.style.display = 'block';
+                document.getElementById('modelo').removeAttribute('required');
+                document.getElementById('modelo_outro').setAttribute('required', 'required');
                 document.getElementById('modelo').style.display = 'none';
                 document.getElementById('modelo_outro').style.display = 'block';
             } else {
+                // Marca selecionada é de uma opção existente
                 document.getElementById('marca_outro').style.display = 'none';
+                document.getElementById('marca').setAttribute('required', 'required');
+                document.getElementById('marca_outro').removeAttribute('required');
+
+                document.getElementById('modelo').setAttribute('required', 'required');
+                document.getElementById('modelo_outro').removeAttribute('required');
+
                 document.getElementById('modelo').style.display = 'block';
                 document.getElementById('modelo_outro').style.display = 'none';
 
@@ -702,9 +670,26 @@
             }
         }
 
-        // Chamar a função de alternância para o modelo e marca
-        document.getElementById('marca').addEventListener('change', () => toggleInput('marca', 'marca_outro'));
-        document.getElementById('modelo').addEventListener('change', () => toggleInput('modelo', 'modelo_outro'));
+        // Função chamada quando o modelo é alterado
+        function onModeloChange() {
+            const modelo = document.getElementById('modelo').value;
+
+            if (modelo === 'Outro') {
+                // Modelo "Outro" selecionado
+                document.getElementById('modelo_outro').style.display = 'block';
+                document.getElementById('modelo').removeAttribute('required');
+                document.getElementById('modelo_outro').setAttribute('required', 'required');
+            } else {
+                // Modelo selecionado é de uma opção existente
+                document.getElementById('modelo_outro').style.display = 'none';
+                document.getElementById('modelo').setAttribute('required', 'required');
+                document.getElementById('modelo_outro').removeAttribute('required');
+            }
+        }
+
+        // Adicionar eventos para alternar o comportamento dos campos de marca e modelo
+        document.getElementById('marca').addEventListener('change', onMarcaChange);
+        document.getElementById('modelo').addEventListener('change', onModeloChange);
 
         // Carregar dados de marcas e modelos assim que a página carregar
         window.onload = loadVehicleData;
