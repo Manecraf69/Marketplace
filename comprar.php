@@ -58,15 +58,15 @@
             }
 
             .veiculo-info .linha1 {
-                font-size: 14px;
-            }
-
-            .veiculo-info .linha2 {
                 font-size: 12px;
             }
 
+            .veiculo-info .linha2 {
+                font-size: 11px;
+            }
+
             .veiculo-info .linha3 {
-                font-size: 10px;
+                font-size: 9px;
             }
         }
     </style>
@@ -93,6 +93,15 @@
             $hodometro = $info['hodometro'];
             $estado = $info['estado'];
             $cidade = $info['cidade'];
+
+            // echo '<div class="linha1"><span>' . substr($marca, 0, 11) . " " . $modelo . '</span></div>';
+
+            // Calculando o espaço restante para o $modelo
+            $limiteTotal = 22;
+            $espacoRestante = $limiteTotal - strlen($marca);
+
+            // Limitando o $modelo para que o total não ultrapasse 22 caracteres
+            $modelo = substr($modelo, 0, $espacoRestante);
             
             // Busca as fotos do veículo
             $fotos = glob($veiculo . '/foto_*.png');
@@ -104,7 +113,7 @@
             echo '<img src="' . $primeira_foto . '" alt="' . $modelo . '">';
             echo '</a>';
             echo '<div class="veiculo-info">';
-            echo '<div class="linha1"><span>' . substr($marca, 0, 11) . '</span><span>' . substr($modelo, 0, 11) . '</span></div>';
+            echo '<div class="linha1"><span>' . substr($marca, 0, 11) . '</span><span>' . $modelo . '</span></div>';
             echo '<div class="linha2"><span>' . $ano . '</span><span> ' . $valor . '</span></div>';
             echo '<div class="linha3"><span>' . $hodometro . ' </span><span> ' . $estado . " " . substr($cidade, 0, 11) . '</span></div>';
             echo '</div>';

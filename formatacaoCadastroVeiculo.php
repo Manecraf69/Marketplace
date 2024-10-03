@@ -139,17 +139,17 @@
 
         @media (max-width: 700px) {
             .linha_opcional .coluna_opcional, .linha, .descricao{
-                font-size: 12px;
+                font-size: 10px;
             }
 
             .marca, .ano, .hodometro{
-                font-size: 12px;
+                font-size: 9px;
             }
             .valor {
-                font-size: 14px;
+                font-size: 11px;
             }
             .modelo {
-                font-size: 18px;
+                font-size: 14px;
             }
 
             .carrossel {
